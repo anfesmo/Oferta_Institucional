@@ -1,85 +1,85 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Entidades</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<head>
+    <title>Entidades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/jquerymobile.css" />
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+    <!-- nativeDroid: Light/Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css" id='jQMnDTheme' />
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
+    <style type="text/css">
+        .parra_texto
+        {
+            font-weight: 300;
+            margin: 7px 0;
+            white-space: normal;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 59px;
+            width: 100%;
+        }
+        .listdo_iconos
+        {
+            padding-bottom: 0px;
+            border: 0 !important;
+        }
         
-        <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
-
-        <!-- jQueryMobileCSS - original without styling -->
-        <link rel="stylesheet" href="css/jquerymobile.css" />
-
-        <!-- nativeDroid core CSS -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
-
-        <!-- nativeDroid: Light/Dark -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
-
-         <!-- nativeDroid: Color Schemes -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
-
-        <style type="text/css">
-            .parra_texto 
-            {
-                font-weight: 300;
-                margin: 7px 0;
-                white-space: normal;
-                display: block;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                min-height: 59px;
-                width: 100%;
-            }
-            .listdo_iconos 
-            {
-
-                padding-bottom:40px; border:0 !important;
-            }
-
-            .imagen_icono 
-            {
-                float:left !important;        
-            }
-
-            .ui-btn-inner
-            {
-                white-space: normal !important;
-            }
-        </style>
-
-        <!-- jQuery / jQueryMobile Scripts -->
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-        <script src="js/funciones.js"></script>
-
-    </head>
-    <body>
+        .imagen_icono
+        {
+            float: left !important;
+        }
         
-    <div data-role="page" data-theme='b'>
-
-
+        .ui-btn-inner
+        {
+            white-space: normal !important;
+        }
+        
+        .ui-collapsible-heading-toggle .ui-btn-text
+        {
+            font-size: 16px !important;
+        }
+        
+        .ui-body-b .ui-collapsible-heading-toggle
+        {
+            border-bottom-width: 0px !important;
+        }
+    </style>
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script src="js/funciones.js"></script>
+</head>
+<body>
+    <div data-role="page" data-theme='b' >
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
             <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
-            <h1>Programas</h1>
+            <h1>
+                Programas</h1>
         </div>
-        
-        <div data-role="content">   
-
-        <ul data-role="listview" data-divider-theme="b" data-icon="false" data-filter="false" data-filter-theme="b" class='showastabs'>
-            <li data-role="list-divider">Consulta de Programas</li>
-            <li><a href="entidades.html"><i class='icon-chevron-left'></i> Regresar</a></li>
-        </ul>
-        
-        <div class='message info'>
-            <i class='icon-info-sign'></i>
-            <p>En esta secci&oacute;n podr&aacute; consultar el listado de programas y toda la oferta institucional vigente </p>
-        </div>
-
-          <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b" id="listadoProgramas">
-          </ul>
-
-            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false" data-theme='b'>
+        <div data-role="content" style="background-color:#F2F2F2 !important;">
+            <ul data-role="listview" data-divider-theme="b" data-icon="false" data-filter="false"
+                data-filter-theme="b" class='showastabs'>
+                <li data-role="list-divider">Consulta de Programas</li>
+            </ul>
+            <div class='message info'>
+                <i class='icon-info-sign'></i>
+                <p>
+                    En esta secci&oacute;n podr&aacute; consultar el listado de programas y toda la
+                    oferta institucional vigente
+                </p>
+            </div>
+            <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
+                id="listadoProgramas">
+            </ul>
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+                data-theme='b'>
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#" data-icon="facebook">facebook</a></li>
@@ -88,20 +88,18 @@
                     </ul>
                 </div>
             </div>
-            
         </div>
-
     </div>
     <script type="text/javascript">
-         $('document').ready(function () {
+        $('document').ready(function () {
             cargar_datos();
-           
+
         });
 
-         function cargar_datos() {
+        function cargar_datos() {
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
-            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/"><soapenv:Header/><soapenv:Body><tem:consultar_oferta><!--Optional:--><tem:id_departamento></tem:id_departamento><!--Optional:--><tem:id_municipio></tem:id_municipio><!--Optional:--><tem:entidad>'+ localStorage.getItem("id_seleccionada") +'</tem:entidad><!--Optional:--><tem:programa></tem:programa><!--Optional:--><tem:estado>0</tem:estado><!--Optional:--><tem:USUARIO>MAARIV_OFERTA</tem:USUARIO><!--Optional:--><tem:PASSWORD>Temporal*2013</tem:PASSWORD><!--Optional:--><tem:opcion>1</tem:opcion></tem:consultar_oferta></soapenv:Body></soapenv:Envelope>';
+            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/"><soapenv:Header/><soapenv:Body><tem:consultar_oferta><!--Optional:--><tem:id_departamento></tem:id_departamento><!--Optional:--><tem:id_municipio></tem:id_municipio><!--Optional:--><tem:entidad>' + localStorage.getItem("id_seleccionada") + '</tem:entidad><!--Optional:--><tem:programa></tem:programa><!--Optional:--><tem:estado>0</tem:estado><!--Optional:--><tem:USUARIO>MAARIV_OFERTA</tem:USUARIO><!--Optional:--><tem:PASSWORD>Temporal*2013</tem:PASSWORD><!--Optional:--><tem:opcion>1</tem:opcion></tem:consultar_oferta></soapenv:Body></soapenv:Envelope>';
             xmlhttp.setRequestHeader('Content-Type', 'text/xml');
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4) {
@@ -125,22 +123,30 @@
                     var cantidad = nodes.length;
                     var texto = "";
                     for (var i = 0; i < cantidad; i++) {
-                        
-              
-                        texto += "<li>  <div data-role='collapsible'><h2 style='padding-bottom:25px;'>VALLE DEL CAUCA - " + xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue + "</h2>"
-                        texto += "<p class='parra_texto ui-li-desc'>" +  xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue; + "</p>"
-                        texto += "<p><strong>Municipio:</strong> Cali </p> <br>"
+
+
+                        texto += "<li style='border-bottom-color:red !important;'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>VALLE DEL CAUCA - " + xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue + "</h2>"
+                        texto += "<p class='parra_texto ui-li-desc'><strong>Nombre programa:</strong><br />" + xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue; +"</p>"
+                        texto += "<p><strong>Municipio:</strong> Cali </p>"
                         texto += "<p><strong>Fecha de cierre:</strong> 25/11/2013 </p> <br>"
-                        texto += "<span class='ui-btn-inner'><span class='ui-btn-text'></span><span class='ui-icon ui-icon-facebook ui-icon-shadow'>&nbsp;</span></span>"
-                         texto += "<span class='ui-btn-inner'><span class='ui-btn-text'></span><span class='ui-icon ui-icon-twitter ui-icon-shadow'>&nbsp;</span></span>"
-                         texto += "</div></li>"
+                        texto += "<div data-role='navbar' style='background-color: White;'>";
+                        texto += "<ul>";
+                        texto += "<li style='border-right: 1px solid;'><a onclick='VerMas('INSTITUTO COLOMBIANO DE CREDITO EDUCATIVO Y ESTUDIOS TECNICOS EN EL EXTERIOR ICETEX')'";
+                        texto += "href='#' data-icon='facebook'>Facebook</a></li>";
+                        texto += "<li><a href=#' data-icon='twitter'>";
+                        texto += "Twitter</a></li>";
+                        texto += "</ul>";
+                        texto += "</div>";
+                        //                        texto += "<span class='ui-btn-inner'><span class='ui-btn-text'></span><span style='border-radius: 50%;' class='ui-icon ui-icon-facebook ui-icon-shadow'>&nbsp;</span></span>"
+                        //                        texto += "<span class='ui-btn-inner'><span class='ui-btn-text'></span><span class='ui-icon ui-icon-twitter ui-icon-shadow'>&nbsp;</span></span>"
+                        texto += "</div></li>"
 
                     }
 
                     $("#listadoProgramas").append(texto);
-                   $("#listadoProgramas").listview("refresh");
-                   $('div[data-role=collapsible]').collapsible({ refresh: true });
-                   
+                    $("#listadoProgramas").listview("refresh");
+                    $('div[data-role=collapsible]').collapsible({ refresh: true });
+                    $('div[data-role=navbar]').navbar({ refresh: true });
                 }
             }
 
@@ -150,6 +156,5 @@
 
         
     </script>
-
-    </body>
+</body>
 </html>
