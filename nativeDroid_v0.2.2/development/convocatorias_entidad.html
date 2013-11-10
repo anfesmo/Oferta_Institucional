@@ -112,7 +112,7 @@
     <script type="text/javascript">
          $('document').ready(function () {
             cargar_datos();
-            $("#listadoProgramas").listview("refresh");
+           
         });
 
          function cargar_datos() {
@@ -152,8 +152,9 @@
 
                     //}
 
-                   $("#listadoProgramas").append(texto);
-
+                        $("#listadoProgramas").append(texto);
+                   $("#listadoProgramas").listview("refresh");
+                   $('div[data-role=collapsible]').collapsible({ refresh: true });
                    
                 }
             }
