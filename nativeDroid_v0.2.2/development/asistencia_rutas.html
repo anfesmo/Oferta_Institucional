@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Unidad de victimas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/jquerymobile.css" />
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+    <!-- nativeDroid: Light/Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css" id='jQMnDTheme' />
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	<style>
+	.p-listado {
+		width: 30% !important;
+	}
+	
+	a-listado{
+	margin-right:0 !important; 
+	padding-right:0 !important;
+	}
+	</style>
+</head>
+<body>
+    <div data-role="page" data-theme='b' id="rutas">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+        <div data-role="content">
+            <div class='message info'>
+                <i class='icon-info-sign'></i>
+                <p>
+                   Conoce qui&eacute;nes se consideran v&iacute;ctimas y qui&eacute;nes no. Encuentra adem&aacute;s los pasos para la atenci&oacute;n y reparaci&oacute;n de las v&iacute;ctimas.</p>
+            </div>
+            <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                <li data-role="list-divider">&iquest;Soy v&iacute;ctima?</li>
+				<li><a href="asistencia_rutas.html#victimas">
+                    <h2>
+                       &iquest;Qui&eacute;nes son o no son v&iacute;ctimas?</h2>
+                </a>
+                    <p class="ui-li-aside p-listado" >
+                        <span class="ui-icon ui-icon-shadow"><i class="icon-group">&nbsp;&nbsp;Ver m&aacute;s</i></span>&nbsp;&nbsp;
+                    </p>
+                </li>
+				 <li data-role="list-divider">Conoce cada paso </li>
+                <li><a href="asistencia_rutas.html#paso1">
+                    <h2>
+                       1. Declarar hechos</h2>
+                </a>
+                    <p class="ui-li-aside p-listado">
+                        <span class="ui-icon ui-icon-shadow"><i class="icon-comments">&nbsp;&nbsp;Ver m&aacute;s</i></span>&nbsp;&nbsp;
+                    </p>
+                </li>
+                <li><a href="asistencia_rutas.html#paso2">
+                    <h2> 2. Atenci&oacute;n humanitaria inmediata</h2>
+                </a>
+                    <p class="ui-li-aside p-listado">
+                        <span class="ui-icon ui-icon-shadow"><i class="icon-ambulance">&nbsp;&nbsp;Ver m&aacute;s</i></span>&nbsp;&nbsp;
+                    </p>
+                </li>
+                <li><a href="asistencia_rutas.html#paso3">
+                    <h2> 3. Valoraci&oacute;n del caso</h2>
+                </a>
+                    <p class="ui-li-aside p-listado">
+                        <span class="ui-icon ui-icon-shadow"><i class="icon-legal">&nbsp;&nbsp;Ver m&aacute;s</i></span>&nbsp;&nbsp;
+                    </p>
+                </li>
+				<li><a href="asistencia_rutas.html#paso4">
+                    <h2>
+                       4. Asistencia y reparaci&oacute;n</h2>
+                </a>
+                    <p class="ui-li-aside p-listado">
+                        <span class="ui-icon ui-icon-shadow"><i class="icon-puzzle-piece">&nbsp;&nbsp;Ver m&aacute;s</i></span>&nbsp;&nbsp;
+                    </p>
+                </li>
+				<li><a href="asistencia_rutas.html#paso5">
+                    <h2>
+                       5. Ayuda humanitaria de emergencia</h2>
+                </a>
+                    <p class="ui-li-aside p-listado">
+                        <span class="ui-icon ui-icon-shadow"><i class="icon-user-md">&nbsp;&nbsp;Ver m&aacute;s</i></span>&nbsp;&nbsp;
+                    </p>
+                </li>
+				
+		    </ul>
+        </div>
+        <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	
+	<div data-role="page" data-theme='b' id="victimas" data-transition="slide">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+		<div data-role="content">
+			<div class="inset">
+			<h3 style="font-weight:bold; padding-top:12px; padding-bottom:8px; ">&iquest;Qui&eacute;nes son v&iacute;ctimas?</h3>
+			<p style="font-size:14px;">Seg&uacute;n el Art&iacute;culo 3 de la Ley 1448 de 2011, se considera v&iacute;ctima a quien individual o colectivamente haya sufrido, a partir del 1 de enero de 1985, daños por homicidio, masacres, secuestro, desaparici&oacute;n forzada, tortura, delitos contra la libertad e integridad sexual en el marco del conflicto; minas antipersonales, munici&oacute;n sin explotar y artefacto explosivo improvisado; acto terrorista, combates, enfrentamientos y hostigamiento; desplazamiento forzado y despojo forzado de tierras (en este caso solo si ocurri&oacute; a partir del 1 de enero de 1991).</p>
+			<h3 style="font-weight:bold; padding-top:14px; padding-bottom:8px; ">&iquest;Qui&eacute;nes no son v&iacute;ctimas?</h3>
+			<p style="font-size:14px;">Seg&uacute;n la Ley 1448 de 2011, no son v&iacute;ctimas quienes est&eacute;n vinculados a un grupo armado al margen de la Ley. Tampoco son v&iacute;ctimas, para efectos de esta ley, quienes hayan sufrido daño en sus derechos como consecuencia de actos de delincuencia com&uacute;n.</p>
+			</div>			
+		</div>	
+		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+	
+	<div data-role="page" data-theme='b' id="paso1" data-transition="slide">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+		<div data-role="content">
+			<div class="inset">
+				<h3 style="font-weight:bold; padding-top:12px; padding-bottom:8px;">Dar a conocer su caso</h3>
+				<p style="font-size:14px;">Pres&eacute;ntese ante una oficina de la Personer&iacute;a, la Defensor&iacute;a del Pueblo o la Procuradur&iacute;a. All&iacute;, el funcionario le realizar&aacute; una serie de preguntas utilizando el ‘Formulario &Uacute;nico de Declaraci&oacute;n (FUD). Las preguntas permiten establecer, por ejemplo, si los hechos ocurrieron antes o despu&eacute;s del 1 de enero de 1985, si est&aacute; en capacidad de responder o si requiere de un tutor, int&eacute;rprete o un funcionario que lo asista o lo represente en la diligencia.</p>
+			</div>
+		</div>
+		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+	
+	<div data-role="page" data-theme='b' id="paso2" data-transition="slide">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+		<div data-role="content">
+			<div class="inset">
+				<h3 style="font-weight:bold; padding-top:12px; padding-bottom:8px; ">Atenci&oacute;n inmediata<h3>
+				<p style="font-size:14px;">Usted tiene derecho a las medidas de asistencia y reparaci&oacute;n previstas en la ley, a&uacute;n antes de ser admitido en el Registro tiene derecho a recibir la ayuda humanitaria y atención de emergencia en salud que requiera como consecuencia directa del hecho de que fue víctima a través de las entidades territoriales.</p>
+			</div>	
+		</div>	
+		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+	
+	<div data-role="page" data-theme='b' id="paso3" data-transition="slide">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+		<div data-role="content">
+			<div class="inset">
+				<h3 style="font-weight:bold; padding-top:12px; padding-bottom:8px; ">Evaluaci&oacute;n para la inclusi&oacute;n<h3>
+				<p style="font-size:14px;">El Formulario &Uacute;nico es enviado a la Unidad para la Atenci&oacute;n y Reparaci&oacute;n Integral a las V&iacute;ctimas. Esta tiene 60 d&iacute;as de plazo para valorar si lo acepta o no en el registro &uacute;nico.</p>
+			</div>	
+		</div>	
+		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+	
+	<div data-role="page" data-theme='b' id="paso4" data-transition="slide">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+		<div data-role="content">
+			<div class="inset">
+				<h3 style="font-weight:bold; padding-top:12px; padding-bottom:8px; ">Remisi&oacute;n a las entidades<h3>
+				<p style="font-size:14px;">Una vez sea admitido en el Registro &uacute;nico, usted tiene derecho a las medidas de asistencia y reparaci&oacute;n previstas en la ley. Sin embargo, a&uacute;n antes de ser admitido en el Registro tiene derecho a recibir la ayuda humanitaria y atenci&oacute;n de emergencia en salud que requiera como consecuencia directa del hecho de que fue v&iacute;ctima. <br>Para declarar la condici&oacute;n de v&iacute;ctima y llevar adelante todos los dem&aacute;s tr&aacute;mites de la atenci&oacute;n y reparaci&oacute;n integral no se requieren intermediarios.</p>
+			</div>	
+		</div>	
+		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+	
+	
+	<div data-role="page" data-theme='b' id="paso5" data-transition="slide">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Unidad de v&iacute;ctimas</h1>
+        </div>
+		<div data-role="content">
+			<div class="inset">
+				<h3 style="font-weight:bold; padding-top:12px; padding-bottom:8px; ">Atenci&oacute;n humanitaria<h3>
+				<p style="font-size:14px;">Usted tiene derecho a las medidas de asistencia y reparación previstas en la ley. Si no es aceptado como v&iacute;ctima, puede presentar un recurso de reposici&oacute;n ante el funcionario de la Unidad que tom&oacute; la decisi&oacute;n, dentro de los cinco (5) días siguientes a la notificaci&oacute;n. Si la respuesta vuelve a ser negativa, puede presentar un recurso de apelaci&oacute;n ante la Direcci&oacute;n de la Unidad para la Atenci&oacute;n y la Reparaci&oacute;n Integral a las V&iacute;ctimas dentro de los cinco (5) días siguientes a la notificaci&oacute;n.</p>
+			</div>	
+		</div>	
+		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="facebook">facebook</a></li>
+                    <li><a href="#" data-icon="twitter">twitter</a></li>
+                    <li><a href="#" data-icon="youtube">youtube</a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+</body>
+</html>
