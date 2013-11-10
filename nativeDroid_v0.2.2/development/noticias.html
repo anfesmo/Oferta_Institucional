@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Entidades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/jquerymobile.css" />
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+    <!-- nativeDroid: Light/Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css" id='jQMnDTheme' />
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
+    <style type="text/css">
+        .parra_texto
+        {
+            font-weight: 300;
+            margin: 7px 0;
+            white-space: normal;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 59px;
+            width: 100%;
+        }
+        .listdo_iconos
+        {
+            padding-bottom: 40px;
+            border: 0 !important;
+        }
+        
+        .imagen_icono
+        {
+            float: left !important;
+        }
+        
+        .ui-btn-inner
+        {
+            white-space: normal !important;
+        }
+    </style>
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+</head>
+<body>
+    <div data-role="page" data-theme='b'>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
+            <h1>
+                Noticias y Eventos</h1>
+        </div>
+        <div data-role="content">
+            <div class='message info'>
+                <i class='icon-info-sign'></i>
+                <p>
+                    En esta secci&oacute;n podr&aacute; consultar el listado de noticias y eventos.
+                </p>
+            </div>
+            <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                <li>
+                    <div data-role="collapsible">
+                        <h3 style="padding-bottom: 25px;">
+                            Misión de verificación en Buenaventura por víctimas de Bacrim
+                        </h3>
+                        <strong><span class="ui-icon ui-icon-calendar ui-icon-shadow"></span>&nbsp;&nbsp;Buenaventura,
+                            9 de noviembre del 2013.</strong><br />
+                        <br />
+                        En los últimos días, alrededor de 707 familias, equivalentes a 2.044 personas, se
+                        desplazaron de sus barrios por enfrentamientos entre banda criminales. La Unidad
+                        para la Atención y Reparación Integral a las Víctimas entregará la próxima semana
+                        407 kits de ayuda humanitaria a igual número de familias.
+                    </div>
+                </li>
+                <li>
+                    <div data-role="collapsible">
+                        <h3 style="padding-bottom: 25px;">
+                            Encuentro de comités de impulso por la paz y la reconciliación
+                        </h3>
+                        <strong><span class="ui-icon ui-icon-calendar ui-icon-shadow"></span>&nbsp;&nbsp;Barranquilla,
+                            8 de noviembre del 2013.</strong><br />
+                        <br />
+                        El 9 y 10 de noviembre se realizará esta reunión que servirá para fortalecer la
+                        capacidad de organización, interlocución y gestión de los Comités de Impulso de
+                        los Sujetos de Reparación Colectiva, y para proponer alternativas de articulación
+                        con las Mesas Territoriales de Participación.
+                    </div>
+                </li>
+                <li>
+                    <div data-role="collapsible">
+                        <h3 style="padding-bottom: 25px;">
+                            En Quibdó también las personas mayores vivieron un día inolvidable
+                        </h3>
+                        <strong><span class="ui-icon ui-icon-calendar ui-icon-shadow"></span>&nbsp;&nbsp;Quibdó,
+                            8 de noviembre del 2013.</strong><br />
+                        <br />
+                        La dirección territorial en esta sección del país reconoció liderazgo y productividad
+                        de victimas mayores de 60 años.
+                    </div>
+                </li>
+            </ul>
+            <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+                data-theme='b'>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-icon="facebook">facebook</a></li>
+                        <li><a href="#" data-icon="twitter">twitter</a></li>
+                        <li><a href="#" data-icon="youtube">youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
