@@ -57,13 +57,13 @@
     <script src="js/funciones.js"></script>
 </head>
 <body>
-    <div data-role="page" data-theme='b' >
+    <div data-role="page" data-theme='b'>
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
             <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
             <h1>
                 Programas</h1>
         </div>
-        <div data-role="content" style="background-color:#F2F2F2 !important;">
+        <div data-role="content" style="background-color: #F2F2F2 !important;">
             <ul data-role="listview" data-divider-theme="b" data-icon="false" data-filter="false"
                 data-filter-theme="b" class='showastabs'>
                 <li data-role="list-divider">Consulta de Programas</li>
@@ -75,6 +75,28 @@
                     oferta institucional vigente
                 </p>
             </div>
+            <strong>Seleccione tipo de acci&oacute;n:</strong><br />
+            <select style="text-align:left;">
+                <option>Atenci&oacute;n humanitaria</option>
+                <option>Asistencia en salud</option>
+                <option>Educaci&oacute;n</option>
+                <option>Asistencia funeraria</option>
+                <option>Identidad</option>
+                <option>Alimentaci&oacute;n</option>
+                <option>Reunificaci&oacute;n familiar</option>
+                <option>Generaci&oacute;n de ingresos</option>
+                <option>Restituci&oacute;n</option>
+                <option>Rehabilitaci&oacute;n</option>
+                <option>Indemnizaci&oacute;n</option>
+            </select>
+            <hr />
+            <strong>Seleccione estado del programa:</strong><br />
+            <select style="text-align:left;">
+                <option>Abierto</option>
+                <option>Cerrado</option>
+                <option>Pr&oacute;ximo</option>
+            </select>
+            <hr />
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
                 id="listadoProgramas">
             </ul>
