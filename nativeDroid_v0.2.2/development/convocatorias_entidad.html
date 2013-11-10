@@ -121,7 +121,12 @@
         function cargar_datos() {
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
-            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/"><soapenv:Header/><soapenv:Body><tem:consultar_oferta><!--Optional:--><tem:id_departamento></tem:id_departamento><!--Optional:--><tem:id_municipio></tem:id_municipio><!--Optional:--><tem:entidad>' + localStorage.getItem("id_seleccionada") + '</tem:entidad><!--Optional:--><tem:programa></tem:programa><!--Optional:--><tem:estado>0</tem:estado><!--Optional:--><tem:USUARIO>MAARIV_OFERTA</tem:USUARIO><!--Optional:--><tem:PASSWORD>Temporal*2013</tem:PASSWORD><!--Optional:--><tem:opcion>1</tem:opcion></tem:consultar_oferta></soapenv:Body></soapenv:Envelope>';
+            if (localStorage.getItem("id_seleccionada") == "sin_entidad") {
+                var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/"><soapenv:Header/><soapenv:Body><tem:consultar_oferta><!--Optional:--><tem:id_departamento>valle</tem:id_departamento><!--Optional:--><tem:id_municipio>cali</tem:id_municipio><!--Optional:--><tem:entidad></tem:entidad><!--Optional:--><tem:programa></tem:programa><!--Optional:--><tem:estado>0</tem:estado><!--Optional:--><tem:USUARIO>MAARIV_OFERTA</tem:USUARIO><!--Optional:--><tem:PASSWORD>Temporal*2013</tem:PASSWORD><!--Optional:--><tem:opcion>1</tem:opcion></tem:consultar_oferta></soapenv:Body></soapenv:Envelope>';
+            }
+            else {
+                var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/"><soapenv:Header/><soapenv:Body><tem:consultar_oferta><!--Optional:--><tem:id_departamento></tem:id_departamento><!--Optional:--><tem:id_municipio></tem:id_municipio><!--Optional:--><tem:entidad>' + localStorage.getItem("id_seleccionada") + '</tem:entidad><!--Optional:--><tem:programa></tem:programa><!--Optional:--><tem:estado>0</tem:estado><!--Optional:--><tem:USUARIO>MAARIV_OFERTA</tem:USUARIO><!--Optional:--><tem:PASSWORD>Temporal*2013</tem:PASSWORD><!--Optional:--><tem:opcion>1</tem:opcion></tem:consultar_oferta></soapenv:Body></soapenv:Envelope>';
+            }
             xmlhttp.setRequestHeader('Content-Type', 'text/xml');
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4) {
