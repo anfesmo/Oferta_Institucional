@@ -40,7 +40,7 @@
 			<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
 	            <li data-role="list-divider">Men&uacute;</li>
 	            <li >
-					<a href="convocatorias_entidad.html" data-ajax="false"><i class='icon-double-angle-right'></i> Consultar programas</a>
+					<a onclick="crearStorage()" href="convocatorias_entidad.html" data-ajax="false"><i class='icon-double-angle-right'></i> Consultar programas</a>
 	            </li>
                 <li>
 					<a href="entidades.html" data-ajax="false"><i class='icon-double-angle-right'></i> Entidades</a>
@@ -98,6 +98,11 @@
 	        </ul>
 		</div>
     </div>
+    <script>
+        function crearStorage() {
+            localStorage.setItem("id_seleccionada", "sin_entidad");
+        }
+    </script>
     
     </body>
 </html>
