@@ -165,11 +165,26 @@
                                 </div>
                             </fieldset>
                         </li>
+                        <li data-role="fieldcontain">
+                            <div class='message success' id="mensaje_correcto" style="display: none;">
+                                <i class='icon-ok'></i>
+                                <p>El programa se ha registrado correctamente.</p>
+                            </div>
+                        </li>
                     </ul>
                 </form>
             </div>
 
         </div>
     </div>
+    <!-----------------------------------Agregado ---------------------------------->
+
+    <script type="text/javascript">
+        function abrir() {
+            $('#mensaje_correcto').fadeIn();
+        }
+    </script>
+
+    <!-----------------------------------Agregado ---------------------------------->
 </body>
 </html>
