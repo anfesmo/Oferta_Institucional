@@ -51,11 +51,163 @@
         {
             font-size: 16px !important;
         }
+
+        .styled-select
+        {
+            width: 90%;
+            height: 34px;
+            overflow: hidden;
+            background: url(imagenes/flecha_abajo.png) no-repeat right #ddd;
+            margin: 5px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+            -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+            box-shadow: 0 2px 0 #FF4D4D, 0 -1px #fff inset;
+            color: #888;
+            border: none;
+            outline: none;
+            display: inline-block;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            padding-top: 10px;
+        }
+
+        .label_titulo {
+            font-size: 18px !important;
+            color: Black;
+            font-weight: 400;
+            padding-left: 8px;
+        }
+
+        .ui-btn-inner {
+            width: 90%;
+        }
+
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ui-icon.ui-icon-arrow-d.ui-icon-shadow').hide();
+            cargar_departamentos();
+        });
+
+        function cargar_departamentos() {
+            $("#combo_departamento").find('option').remove().end().attr("selected", "selected");
+            var xmlhttp = new window.XMLHttpRequest();
+            xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/WS_MAARIV.asmx?wsdl', true);
+            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
+                     '<soapenv:Header/>' +
+                        '<soapenv:Body>' +
+                            '<tem:consultar_departamentos>' +
+                                '<!--Optional:-->' +
+                                '<tem:id_departamento></tem:id_departamento>' +
+                                '<!--Optional:-->' +
+                                '<tem:USUARIO>MAARIV_OFERTA</tem:USUARIO>' +
+                                '<!--Optional:-->' +
+                                '<tem:PASSWORD>Temporal*2013</tem:PASSWORD>' +
+                                '<!--Optional:-->' +
+                                '<tem:opcion>1</tem:opcion>' +
+                            '</tem:consultar_departamentos>' +
+                        '</soapenv:Body>' +
+                      '</soapenv:Envelope>';
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    try { //Internet Explorer
+                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                        xmlDoc.async = "false";
+                        xmlDoc.loadXML(this.responseText);
+                    }
+                    catch (e) {
+                        try { // Firefox, Mozilla, Opera, etc.
+                            parser = new DOMParser();
+                            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                        }
+                        catch (e) {
+                            //alert(e.message);
+                            return;
+                        }
+                    }
+                    var nodes = xmlDoc.getElementsByTagName("departamento");
+                    var cantidad = nodes.length;
+                    var texto_combo = "";
+                    for (var i = 0; i < cantidad; i++) {
+                        texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                    }
+                    $("#combo_departamento").append(texto_combo);
+                    cargar_ciudades();
+                }
+            }
+            xmlhttp.send(sr);
+        }
+
+        function cargar_ciudades() {
+            $("#combo_municipio").find('option').remove().end().selectmenu('refresh');
+            var xmlhttp = new window.XMLHttpRequest();
+            xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/WS_MAARIV.asmx?wsdl', true);
+            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
+                     '<soapenv:Header/>' +
+                        '<soapenv:Body>' +
+                            '<tem:consultar_municipios_por_departamento>' +
+                                '<!--Optional:-->' +
+                                '<tem:id_departamento>' + $("#combo_departamento").val() + '</tem:id_departamento>' +
+                                '<!--Optional:-->' +
+                                '<tem:USUARIO>MAARIV_OFERTA</tem:USUARIO>' +
+                                '<!--Optional:-->' +
+                                '<tem:PASSWORD>Temporal*2013</tem:PASSWORD>' +
+                                '<!--Optional:-->' +
+                                '<tem:opcion>1</tem:opcion>' +
+                            '</tem:consultar_municipios_por_departamento>' +
+                        '</soapenv:Body>' +
+                      '</soapenv:Envelope>';
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    try { //Internet Explorer
+                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                        xmlDoc.async = "false";
+                        xmlDoc.loadXML(this.responseText);
+                    }
+                    catch (e) {
+                        try { // Firefox, Mozilla, Opera, etc.
+                            parser = new DOMParser();
+                            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                        }
+                        catch (e) {
+                            //alert(e.message);
+                            return;
+                        }
+                    }
+                    var nodes = xmlDoc.getElementsByTagName("municipio");
+                    var cantidad = nodes.length;
+                    var texto_combo = "";
+                    for (var i = 0; i < cantidad; i++) {
+                        texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue + "</option>";
+                    }
+                    $("#combo_municipio").append(texto_combo);
+                }
+            }
+            xmlhttp.send(sr);
+        }
+
+        function omitirAcentos(text) {
+            var acentos = "√¿¡ƒ¬»…À ÃÕœŒ“”÷‘Ÿ⁄‹€„‡·‰‚ËÈÎÍÏÌÔÓÚÛˆÙ˘˙¸˚—Ò«Á";
+            var original = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc";
+            for (var i = 0; i < acentos.length; i++) {
+                if (text != null) {
+                    text = text.replace(acentos.charAt(i), original.charAt(i));
+                }
+            }
+            return text;
+        }
+    </script>
 </head>
 <body>
     <div data-role="page" data-theme='b'>
@@ -76,6 +228,20 @@
                     institucional vigente
                 </p>
             </div>
+            <strong>
+                <span class="label_titulo">Seleccione
+                    el departamento:</span>
+            </strong>
+            <br />
+            <select style="text-align:left;" class="styled-select" id="combo_departamento" name="combo_departamento" onchange="cargar_ciudades();">
+            </select>
+            <strong>
+                <span class="label_titulo">Seleccione
+                    la ciudad:</span>
+            </strong>
+            <br />
+            <select style="text-align:left;" class="styled-select" id="combo_municipio" name="combo_municipio">
+            </select>
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
                 <li style='border-bottom-color: red !important;'>
                     <div data-role="collapsible">
@@ -105,12 +271,12 @@
                                     Sitio web</a></li>
                             </ul>
                         </div>
-                        <!--<ul data-role="listview" class="listdo_iconos">
+                        <ul data-role="listview" class="listdo_iconos">
                             <li class="imagen_icono" data-icon="dribble"><a href="http://www.mineducacion.gov.co/1621/w3-article-85244.html"
                                 target="_blank">Sitio Web</a> </li>
                             <li class="imagen_icono" data-icon="list"><a target="_blank" href="#" onclick="VerMas('INSTITUTO COLOMBIANO DE CREDITO EDUCATIVO Y ESTUDIOS TECNICOS EN EL EXTERIOR ICETEX')">
                                 Programas</a> </li>
-                        </ul>-->
+                        </ul>
                     </div>
                 </li>
                 <li style='border-bottom-color: red !important;'>
@@ -174,9 +340,9 @@
                 data-theme='b'>
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-icon="facebook">facebook</a></li>
-                        <li><a href="#" data-icon="twitter">twitter</a></li>
-                        <li><a href="#" data-icon="youtube">youtube</a></li>
+                        <li><a href="#" data-icon="facebook"></a></li>
+                        <li><a href="#" data-icon="twitter"></a></li>
+                        <li><a href="#" data-icon="youtube"></a></li>
                     </ul>
                 </div>
             </div>
