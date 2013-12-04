@@ -118,6 +118,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.ui-icon.ui-icon-arrow-d.ui-icon-shadow').hide();
+			localStorage.setItem("nombre_entidad", "");
+            localStorage.setItem("nombre_departamento", "");
+            localStorage.setItem("nombre_municipio", "");
             cargar_departamentos();
         });
 

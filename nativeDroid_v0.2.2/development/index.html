@@ -99,6 +99,12 @@
 		</div>
     </div>
     <script>
+		 $(document).ready(function () {            
+			localStorage.setItem("nombre_entidad", "");
+            localStorage.setItem("nombre_departamento", "");
+            localStorage.setItem("nombre_municipio", "");
+        });
+	
         function crearStorage() {
             localStorage.setItem("id_seleccionada", "sin_entidad");
         }
