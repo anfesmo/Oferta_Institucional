@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+-<!DOCTYPE HTML>
 <html>
 <head>
     <title>Entidades</title>
@@ -165,7 +165,7 @@
                         texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
                     }
                     $("#combo_departamento").append(texto_combo);
-                    $("#combo_departamento").val("5");
+                    //$("#combo_departamento").val("5");
                     $("#combo_departamento").selectmenu('refresh');
                     cargar_ciudades();
                 }
@@ -217,7 +217,7 @@
                         texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue + "</option>";
                     }
                     $("#combo_municipio").append(texto_combo);
-                    $("#combo_municipio").val("5001");
+                    //$("#combo_municipio").val("5001");
                     $("#combo_municipio").selectmenu('refresh');
                     cargar_entidades();
                 }
@@ -400,18 +400,18 @@
                     la ciudad:</span>
             </strong>
             <br />
-            <select style="text-align:left;" class="styled-select" id="combo_municipio" name="combo_municipio">
+            <select style="text-align:left;" class="styled-select" id="combo_municipio" name="combo_municipio" onchange="cargar_entidades();">
             </select>
             <ul data-nativedroid-plugin='cards' id="lista_entidades">
             </ul>
-            <div class="center-text">
+            <!--<div class="center-text">
                 <label id="label_registros" style="text-align: center;">
                 </label>
             </div>
             <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda"
                 id="flechas_paginacion_izq">< Anterior</a>
             <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha"
-                id="flechas_paginacion_der">Siguiente ></a>
+                id="flechas_paginacion_der">Siguiente ></a>-->
             <br />
             <br />
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
