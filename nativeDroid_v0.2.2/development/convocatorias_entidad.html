@@ -85,6 +85,50 @@
         .ui-btn-inner {
             width: 90%;
         }
+
+        .div_blanco {
+            background-color: White;
+        }
+
+        .vinculo_derecha {
+            float: right;
+            padding-right: 1%;
+        }
+
+        .vinculo_izquierda {
+            float: left;
+            padding-left: 1%;
+            display: none;
+        }
+
+        .puntero {
+            cursor: pointer;
+            color: #404040;
+            font-weight: bold;
+        }
+
+        .borde_listview {
+            color: #404040;
+            border: 2px solid rgba(0,0,0,0.2) !important;
+            padding: 1%;
+            margin: 1% !important;
+            margin-bottom: 10px !important;
+            background-color: white;
+            cursor: default;
+            -moz-border-radius: 10px 10px 10px 10px !important;
+            -webkit-border-radius: 10px 10px 10px 10px !important;
+        }
+
+        .espacios_listview
+        {
+            padding: 1%;
+            margin: 1%;
+        }
+
+        .texto_izq {
+           text-align: left; 
+        }
+
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -137,6 +181,22 @@
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
                 id="listadoProgramas">
             </ul>
+            <div class='message warning' id="mensaje_sinregistros">
+                <i class='icon-info-sign'></i>
+                <p>
+                    Los datos seleccionados no tienen programas asociados
+                </p>
+            </div>
+            <div class="center-text">
+                <label id="label_registros" style="text-align: center;">
+                </label>
+            </div>
+            <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda"
+                id="flechas_paginacion_izq">< Anterior</a>
+            <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha"
+                id="flechas_paginacion_der">Siguiente ></a>
+            <br />
+            <br />
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
                 data-theme='b'>
                 <div data-role="navbar">
@@ -150,8 +210,15 @@
         </div>
     </div>
     <script type="text/javascript">
+
+        var pagina_actual = 1;
+        var ultima_pagina = 1;
+        var primera_pagina = 1;
+        var numero_items = 0;
+
         $(document).ready(function () {
             $('.ui-icon.ui-icon-arrow-d.ui-icon-shadow').hide();
+            $('#mensaje_sinregistros').hide();
             cargar_departamentos();
         });
 
@@ -279,7 +346,7 @@
 			
 			var estado = $("#combo_estado").val();
 			var texto = "";
-			
+
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
             var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">'+
@@ -319,10 +386,13 @@
                     }
                     var nodes = xmlDoc.getElementsByTagName("Table");
                     var cantidad = nodes.length;
-                    
+                    cont = 0;
+                    pagina = 1;
+                    numeropp = 0;
+
 					for (var i = 0; i < cantidad; i++) {
 
-						texto += "<li style='border-bottom-color:red !important;'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>"; 
+					    texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
 						if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0){
 							texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue; 
 						}
@@ -352,12 +422,54 @@
 							texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue; 
 						}
 						texto +="  </p> <br>";
-                        texto += "</div></li>";
+						texto += "</div></li>";
+						cont++;
+						numeropp++;
+
+						if (numeropp == 5) {
+						    pagina++;
+						    numeropp = 0;
+						}
                     }
                     $("#listadoProgramas").append(texto);
                     $("#listadoProgramas").listview("refresh");
                     $('div[data-role=collapsible]').collapsible({ refresh: true });
                     $('div[data-role=navbar]').navbar({ refresh: true });
+                    if (cont % 5 == 0) {
+                        ultima_pagina = pagina - 1;
+                    }
+                    else {
+                        ultima_pagina = pagina;
+                    }
+
+                    numero_items = cont;
+                    $('#listadoProgramas .todas').hide();
+                    $('#listadoProgramas .' + primera_pagina).show();
+
+                    if (cont < 5) {
+                        $('#label_registros').html("Entidades 1 a " + cont + " de " + cont);
+                    }
+                    else {
+                        $('#label_registros').html("Entidades 1 a " + 5 * pagina_actual + " de " + cont);
+                    }
+                    $('#flechas_paginacion_izq').hide();
+                    if (pagina < 2) {
+
+                        $('#flechas_paginacion_der').hide();
+                    }
+                    else {
+                        $('#flechas_paginacion_der').show();
+                    }
+                    if (cont == 0) {
+                        $('#mensaje_sinregistros').show();
+                        $('#flechas_paginacion').hide();
+                        $("#label_registros").css("display", "none");
+                    }
+                    else {
+                        $('#mensaje_sinregistros').hide();
+                        $('#flechas_paginacion').show();
+                        $("#label_registros").css("display", "block");
+                    }
                 }
             }
             xmlhttp.send(sr);
@@ -372,6 +484,54 @@
                 }
             }
             return text;
+        }
+
+        function paginarSiguiente() {
+            if (pagina_actual != ultima_pagina) {
+                $('#listadoProgramas .todas').hide();
+                pagina_actual = pagina_actual + 1;
+                $('#listadoProgramas .' + pagina_actual).show();
+                if (pagina_actual == ultima_pagina) {
+                    $('#flechas_paginacion_der').hide();
+                    $('#flechas_paginacion_izq').show();
+                }
+                else {
+                    $('#flechas_paginacion_der').show();
+                    $('#flechas_paginacion_izq').show();
+                }
+                items_pagina = (5 * (pagina_actual - 1)) + 1;
+                if (pagina_actual == ultima_pagina) {
+                    items_final = numero_items;
+                }
+                else {
+                    items_final = 5 * pagina_actual;
+                }
+                $('#label_registros').html("Entidades " + items_pagina + " a " + items_final + " de " + cont);
+            }
+        }
+
+        function paginarAnterior() {
+            if (pagina_actual != primera_pagina) {
+                $('#listadoProgramas .todas').hide();
+                pagina_actual = pagina_actual - 1;
+                $('#listadoProgramas .' + pagina_actual).show();
+                items_pagina = (5 * (pagina_actual - 1)) + 1;
+                if (pagina_actual == primera_pagina) {
+                    $('#flechas_paginacion_izq').hide();
+                    $('#flechas_paginacion_der').show();
+                }
+                else {
+                    $('#flechas_paginacion_izq').show();
+                    $('#flechas_paginacion_der').show();
+                }
+                if (pagina_actual == 1) {
+                    items_final = 5;
+                }
+                else {
+                    items_final = 5 * pagina_actual;
+                }
+                $('#label_registros').html("Entidades " + items_pagina + " a " + items_final + " de " + cont);
+            }
         }
         
     </script>

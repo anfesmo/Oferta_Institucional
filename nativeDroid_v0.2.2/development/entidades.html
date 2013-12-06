@@ -74,6 +74,7 @@
             appearance: none;
             cursor: pointer;
             padding-top: 10px;
+            text-align: left;
         }
 
         .label_titulo {
@@ -97,16 +98,41 @@
 
         .vinculo_derecha {
             float: right;
-            padding-right: 5px;
+            padding-right: 1%;
         }
 
         .vinculo_izquierda {
             float: left;
-            padding-left: 5px;
+            padding-left: 1%;
+            display: none;
         }
 
         .puntero {
             cursor: pointer;
+            color: #404040;
+            font-weight: bold;
+        }
+
+        .borde_listview {
+            color: #404040;
+            border: 2px solid rgba(0,0,0,0.2);
+            padding: 1%;
+            margin: 1% !important;
+            margin-bottom: 10px !important;
+            background-color: white;
+            cursor: default;
+            -moz-border-radius: 10px 10px 10px 10px !important;
+            -webkit-border-radius: 10px 10px 10px 10px !important;
+        }
+
+        .espacios_listview
+        {
+            padding: 1%;
+            margin: 1%;
+        }
+
+        .texto_izq {
+           text-align: left; 
         }
 
     </style>
@@ -116,12 +142,20 @@
     <script src="js/funciones.js"></script>
     <script src="js/nativedroid.script.js"></script>
     <script type="text/javascript">
+
+        var pagina_actual = 1;
+        var ultima_pagina = 1;
+        var primera_pagina = 1;
+        var numero_items = 0;
+
         $(document).ready(function () {
             $('.ui-icon.ui-icon-arrow-d.ui-icon-shadow').hide();
+            $('#mensaje_sinregistros').hide();
 			localStorage.setItem("nombre_entidad", "");
             localStorage.setItem("nombre_departamento", "");
             localStorage.setItem("nombre_municipio", "");
             cargar_departamentos();
+
         });
 
         function cargar_departamentos() {
@@ -283,61 +317,70 @@
                         numeropp = 0;
                         var entidades_ing = "";
                         for (var i = 0; i < cantidad; i++) {
-                            if (entidades_ing.indexOf("-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-") == -1)
-                            {
-                                cont++;
-                                texto = "<li data-cards-type='text'>" +
-					                        "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
-                                            "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
-                                        "</li>";
-                            
-                                $("#lista_entidades").append(texto);
-                                numeropp++;
+                            if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null) {
+                                var num = xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length;
+                                if (num > 0)
+                                {
+                                    if (entidades_ing.indexOf("-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-") == -1) {
+                                        cont++;
+                                        numeropp++;
 
-                                if (numeropp == 5) {
-                                    pagina++;
-                                    numeropp = 0;
+                                        texto = "<li class='borde_listview todas " + pagina + "'>" +
+                                                    "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
+                                                    "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
+                                                "</li>";
+
+                                        $("#lista_entidades").append(texto);
+
+                                        if (numeropp == 5) {
+                                            pagina++;
+                                            numeropp = 0;
+                                        }
+                                        entidades_ing += "-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-";
+                                    }
                                 }
-                                entidades_ing += "-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-";
                             }
                         }
-                        //if (cont % 5 == 0) {
-                        //    ultima_pagina = pagina - 1;
-                        //}
-                        //else {
-                        //    ultima_pagina = pagina;
-                        //}
+                        $("#lista_entidades").listview("refresh");
+                        $('div[data-role=collapsible]').collapsible({ refresh: true });
+                        $('div[data-role=navbar]').navbar({ refresh: true });
+                        if (cont % 5 == 0) {
+                            ultima_pagina = pagina - 1;
+                        }
+                        else {
+                            ultima_pagina = pagina;
+                        }
 
-                        //numero_items = cont;
+                        numero_items = cont;
                         
 
-                        //$('#lista_convocatorias .todas').hide();
-                        //$('#lista_convocatorias .' + primera_pagina).show();
+                        $('#lista_entidades .todas').hide();
+                        $('#lista_entidades .' + primera_pagina).show();
                         
-                        //if (cont < 5) {
-                        //    $('#label_registros').html("Entidades 1 a " + cont + " de " + cont);
-                        //}
-                        //else {
-                        //    $('#label_registros').html("Entidades 1 a " + 5 * pagina_actual + " de " + cont);
-                        //}
-                        //if (pagina < 2) {
-                        //    $('#flechas_paginacion_izq').hide();
-                        //    $('#flechas_paginacion_der').hide();
-                        //}
-                        //else {
-                        //    $('#flechas_paginacion_izq').show();
-                        //    $('#flechas_paginacion_der').show();
-                        //}
-                        //if (cont == 0) {
-                        //    $('#notificacion_sindatos').show();
-                        //    $('#flechas_paginacion').hide();
-                        //    $("#label_registros").css("display", "none");
-                        //}
-                        //else {
-                        //    $('#notificacion_sindatos').hide();
-                        //    $('#flechas_paginacion').show();
-                        //    $("#label_registros").css("display", "block");
-                        //}
+                        if (cont < 5) {
+                            $('#label_registros').html("Entidades 1 a " + cont + " de " + cont);
+                        }
+                        else {
+                            $('#label_registros').html("Entidades 1 a " + 5 * pagina_actual + " de " + cont);
+                        }
+                        $('#flechas_paginacion_izq').hide();
+                        if (pagina < 2) {
+                            
+                            $('#flechas_paginacion_der').hide();
+                        }
+                        else {
+                            $('#flechas_paginacion_der').show();
+                        }
+                        if (cont == 0) {
+                            $('#mensaje_sinregistros').show();
+                            $('#flechas_paginacion').hide();
+                            $("#label_registros").css("display", "none");
+                        }
+                        else {
+                            $('#mensaje_sinregistros').hide();
+                            $('#flechas_paginacion').show();
+                            $("#label_registros").css("display", "block");
+                        }
                     }
                     else {
                         //$('#sin_internet').show();
@@ -370,6 +413,54 @@
             window.location.href = "convocatorias_entidad.html";
         }
 
+        function paginarSiguiente() {
+            if (pagina_actual != ultima_pagina) {
+                $('#lista_entidades .todas').hide();
+                pagina_actual = pagina_actual + 1;
+                $('#lista_entidades .' + pagina_actual).show();
+                if (pagina_actual == ultima_pagina) {
+                    $('#flechas_paginacion_der').hide();
+                    $('#flechas_paginacion_izq').show();
+                }
+                else {
+                    $('#flechas_paginacion_der').show();
+                    $('#flechas_paginacion_izq').show();
+                }
+                items_pagina = (5 * (pagina_actual - 1)) + 1;
+                if (pagina_actual == ultima_pagina) {
+                    items_final = numero_items;
+                }
+                else {
+                    items_final = 5 * pagina_actual;
+                }
+                $('#label_registros').html("Entidades " + items_pagina + " a " + items_final + " de " + cont);
+            }
+        }
+
+        function paginarAnterior() {
+            if (pagina_actual != primera_pagina) {
+                $('#lista_entidades .todas').hide();
+                pagina_actual = pagina_actual - 1;
+                $('#lista_entidades .' + pagina_actual).show();
+                items_pagina = (5 * (pagina_actual - 1)) + 1;
+                if (pagina_actual == primera_pagina) {
+                    $('#flechas_paginacion_izq').hide();
+                    $('#flechas_paginacion_der').show();
+                }
+                else {
+                    $('#flechas_paginacion_izq').show();
+                    $('#flechas_paginacion_der').show();
+                }
+                if (pagina_actual == 1) {
+                    items_final = 5;
+                }
+                else {
+                    items_final = 5 * pagina_actual;
+                }
+                $('#label_registros').html("Entidades " + items_pagina + " a " + items_final + " de " + cont);
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -396,25 +487,31 @@
                     el departamento:</span>
             </strong>
             <br />
-            <select style="text-align:left;" class="styled-select" id="combo_departamento" name="combo_departamento" onchange="cargar_ciudades();">
+            <select class="styled-select" id="combo_departamento" name="combo_departamento" onchange="cargar_ciudades();">
             </select>
             <strong>
                 <span class="label_titulo">Seleccione
                     la ciudad:</span>
             </strong>
             <br />
-            <select style="text-align:left;" class="styled-select" id="combo_municipio" name="combo_municipio" onchange="cargar_entidades();">
+            <select class="styled-select" id="combo_municipio" name="combo_municipio" onchange="cargar_entidades();">
             </select>
-            <ul data-nativedroid-plugin='cards' id="lista_entidades">
+            <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b" id="lista_entidades" class="espacios_listview">
             </ul>
-            <!--<div class="center-text">
+            <div class='message warning' id="mensaje_sinregistros">
+                <i class='icon-info-sign'></i>
+                <p>
+                    Los datos seleccionados no tienen entidades asociadas
+                </p>
+            </div>
+            <div class="center-text">
                 <label id="label_registros" style="text-align: center;">
                 </label>
             </div>
             <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda"
                 id="flechas_paginacion_izq">< Anterior</a>
             <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha"
-                id="flechas_paginacion_der">Siguiente ></a>-->
+                id="flechas_paginacion_der">Siguiente ></a>
             <br />
             <br />
             <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
