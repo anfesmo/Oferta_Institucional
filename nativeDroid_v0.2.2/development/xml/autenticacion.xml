@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<datosUsuario>
+<Userdata>
   <authentication>
 	  <user>MAARIV_OFERTA</user>
 	  <password>Temporal*2013</password>
   </authentication>
-</datosUsuario>
+</Userdata>
