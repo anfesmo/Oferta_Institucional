@@ -35,25 +35,32 @@
         {
             float: left !important;
         }
-        
-        .ui-btn-inner
+    
+        .textoEnlace
         {
-            white-space: normal !important;
+            Color:black !important;
         }
-        
-        .ui-body-b .ui-collapsible-heading-toggle
-        {
-            border-bottom-width: 0px !important;
-        }
-        
-        .ui-collapsible-heading-toggle .ui-btn-text
-            {
-                font-size:16px !important;
-            }
+    
+    
+    
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script>
+    function abrirUnidad() {
+    
+    window.open("http://www.unidadvictimas.gov.co/index.php/en/sala-de-prensa/noticias", "_blank", "closebuttoncaption=Regresar");
+    
+    }
+    
+    function abrirEscuela() {
+    
+    window.open("http://escuela.unidadvictimas.gov.co/index.php/en/", "_blank", "closebuttoncaption=Regresar");
+    
+    }
+    </script>
 </head>
 <body>
     <div data-role="page" data-theme='b'>
@@ -66,54 +73,24 @@
             <div class='message info'>
                 <i class='icon-info-sign'></i>
                 <p>
-                    En esta secci&oacute;n podr&aacute; consultar el listado de noticias y eventos.
+                    En esta secci&oacute;n podr&aacute; consultar los enlaces a las novedades de la unidad de v&iacute;ctimas.
                 </p>
             </div>
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
                 <li style='border-bottom-color:red !important;'>
-                    <div data-role="collapsible">
+                    <div>
                         <h3 style="padding-bottom: 5px;">
-                            Misión de verificación en Buenaventura por víctimas de Bacrim
+                            <a href="#" class="textoEnlace" onclick="abrirUnidad()">Sala de prensa unidad de v&iacute;ctimas </a>
                         </h3>
-                        <strong><span class="ui-icon ui-icon-calendar ui-icon-shadow"></span>&nbsp;&nbsp;Buenaventura,
-                            9 de noviembre del 2013.</strong><br />
                         <br />
-                        <img src="imagenes/1.jpg" style="width:100%;" />
-                        <br />
-                        En los últimos días, alrededor de 707 familias, equivalentes a 2.044 personas, se
-                        desplazaron de sus barrios por enfrentamientos entre banda criminales. La Unidad
-                        para la Atención y Reparación Integral a las Víctimas entregará la próxima semana
-                        407 kits de ayuda humanitaria a igual número de familias.
                     </div>
                 </li>
                 <li style='border-bottom-color:red !important;'>
-                    <div data-role="collapsible">
+                    <div>
                         <h3 style="padding-bottom: 5px;">
-                            Encuentro de comités de impulso por la paz y la reconciliación
+                            <a href="#" class="textoEnlace" onclick="abrirEscuela()">Escuela de reparaciones </a>
                         </h3>
-                        <strong><span class="ui-icon ui-icon-calendar ui-icon-shadow"></span>&nbsp;&nbsp;Barranquilla,
-                            8 de noviembre del 2013.</strong><br />
                         <br />
-                        <img src="imagenes/2.jpg" style="width:100%;" />
-                        <br />
-                        El 9 y 10 de noviembre se realizará esta reunión que servirá para fortalecer la
-                        capacidad de organización, interlocución y gestión de los Comités de Impulso de
-                        los Sujetos de Reparación Colectiva, y para proponer alternativas de articulación
-                        con las Mesas Territoriales de Participación.
-                    </div>
-                </li>
-                <li style='border-bottom-color:red !important;'>
-                    <div data-role="collapsible">
-                        <h3 style="padding-bottom: 5px;">
-                            En Quibdó también las personas mayores vivieron un día inolvidable
-                        </h3>
-                        <strong><span class="ui-icon ui-icon-calendar ui-icon-shadow"></span>&nbsp;&nbsp;Quibdó,
-                            8 de noviembre del 2013.</strong><br />
-                        <br />
-                        <img src="imagenes/3.jpg" style="width:100%;" />
-                        <br />
-                        La dirección territorial en esta sección del país reconoció liderazgo y productividad
-                        de victimas mayores de 60 años.
                     </div>
                 </li>
             </ul>
@@ -121,13 +98,31 @@
                 data-theme='b'>
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" data-icon="facebook">facebook</a></li>
-                        <li><a href="#" data-icon="twitter">twitter</a></li>
-                        <li><a href="#" data-icon="youtube">youtube</a></li>
+                        <li><a href="#" onclick="abrirFacebook()" data-icon="facebook"></a></li>
+                        <li><a href="#" onclick="abrirTwitter()" data-icon="twitter"></a></li>
+                        <li><a href="#" onclick="abrirYoutube()" data-icon="youtube"></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function abrirFacebook ()
+        {
+            window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+    
+    function abrirTwitter ()
+    {
+        window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
+    }
+    
+    function abrirYoutube ()
+    {
+        window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
+    }
+    
+        </script>
+
 </body>
 </html>
