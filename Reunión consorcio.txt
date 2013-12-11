@@ -1,0 +1,53 @@
+
+Alcance: Lo que se desarrolló durante el evento.
+
+Minimo: Android 2.3.4 iOs 5
+
+Proceso:
+
+1. Espec. de diseño:
+- Req funcionales y no funcionales
+- de seguridad
+- fuentes de info
+- Alcance funcional y no no funcional
+- documento de diseño entregado por consorcio
+
+2. Contrucción: Lo que se entrega
+-instalador
+-cod fuente
+-doc de diseño
+-Manual instalacion y config: se hace entre consorcio y nosotros 
+-certifcacion entrega de fuente
+
+3. Pruebas:
+-Informe de pruebas y evidencias: lo hace el consorcio
+
+4. Paso a entrega:
+- informe instalacion en ambiente de produccion
+- instaladores de la solucion
+- carta de garantía y soporte
+- Registro aplicación en las tiendas
+
+6. Estabilización.
+
+-----Notas
+
+Operardor consorcio: Piedad Vargas.
+
+Primera reunión esta misma semana con la entidad.
+
+
+2 semanas de desarrollo
+1 semana pruebas consorcio
+1 pruebas aceptacion
+1 produccion y entrega
+La sexta semana dicen que termina un martes entonces no se tiene en cuenta
+
+Es necesaro terminar 2 semanas antes de terminar el año. A más tardar el 19 de dic.
+
+*jira y github para la gestión.
+
+
+
+
+
