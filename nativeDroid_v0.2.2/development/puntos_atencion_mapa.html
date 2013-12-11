@@ -280,7 +280,6 @@
                             //  texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
                             //}
                         }
-
                         $("#combo_departamento").append(texto_combo);
                         $("#combo_departamento").selectmenu('refresh');
                         google.maps.event.addDomListener(window, 'load', crearMapa);
@@ -334,9 +333,17 @@
                 success: function (data) {
                     $.each(data, function (i, field) {
                         var cant = field.length;
-                        $.each(field, function (x, item) {
-                            PosicionGoogle(field[x].departamento, field[x].municipio, field[x].direccionpuntodeatencion, field[x].diasdeatencion, field[x].horariodeatencion, field[x].latitud, field[x].longitud);
-                        });
+                        if (cant > 0) {
+                            $('#div_sinpuntos').hide();
+                            //$('#map-canvas').show();
+                            $.each(field, function (x, item) {
+                                PosicionGoogle(field[x].departamento, field[x].municipio, field[x].direccionpuntodeatencion, field[x].diasdeatencion, field[x].horariodeatencion, field[x].latitud, field[x].longitud);
+                            });
+                        }
+                        else {
+                            $('#div_sinpuntos').show();
+                            //$('#map-canvas').hide();
+                        }
                     });
                     $('#div_cargando').hide();
                 },
@@ -471,8 +478,15 @@
                 <option value="Vaupes">Vaupés</option>
                 <option value="Vichada">Vichada</option>
             </select>
+            <div class='message warning' id="div_sinpuntos" style="display:none;">
+                <i class='icon-warning-sign'></i>
+                <p>
+                    No existen puntos de atención en el departamento seleccionado.
+                </p>
+            </div>
             <div id="map-canvas">
             </div>
+            
         </div>
         <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
             data-theme='b'>
