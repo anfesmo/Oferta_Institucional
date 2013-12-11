@@ -220,6 +220,17 @@
             $('#mensaje_sinregistros').hide();
 			cargar_categorias();
 			setTimeout("cargar_faqs()", 1000);
+			 try {
+                xmlDoc = AbrirFichero("xml/autenticacion.xml");
+                xmlAuth = xmlDoc.getElementsByTagName('authentication');
+                Auth_xml = xmlAuth[0];
+                dato_usuario = Auth_xml.getElementsByTagName("user")[0].firstChild.nodeValue;
+                dato_psw = Auth_xml.getElementsByTagName("password")[0].firstChild.nodeValue;
+               // cargar_departamentos();
+            }
+            catch (e) {
+
+            }
 		});
 		
 		function cargar_categorias() {
@@ -381,6 +392,38 @@
                 }
                 $('#label_registros').html("Programas " + items_pagina + " a " + items_final + " de " + cont);
             }
+        }
+		
+		 function AbrirFichero(fichXML) {
+            var xmlDoc = undefined;
+            try {
+                if (document.all) //IE
+                {
+                    xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                }
+                else //firefox
+                {
+                    xmlDoc = document.implementation.createDocument("", "", null);
+                }
+                xmlDoc.async = false;
+                xmlDoc.load(fichXML);
+
+
+            }
+            catch (e) {
+                try { //otros safari, chrome
+                    var xmlhttp = new window.XMLHttpRequest();
+                    xmlhttp.open("GET", fichXML, false);
+                    xmlhttp.send(null);
+                    xmlDoc = xmlhttp.responseXML.documentElement;
+                    return xmlDoc;
+                }
+                catch (e) {
+                    return undefined;
+                }
+
+            }
+            return xmlDoc;
         }
 
     </script>
