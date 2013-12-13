@@ -14,7 +14,8 @@
     <!-- nativeDroid: Color Schemes -->
     <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
     <style type="text/css">
-        .parra_texto {
+        .parra_texto
+        {
             font-weight: 300;
             margin: 7px 0;
             white-space: normal;
@@ -23,22 +24,26 @@
             text-overflow: ellipsis;
             width: 100%;
         }
-
-        .ui-btn-inner {
+        
+        .ui-btn-inner
+        {
             white-space: normal !important;
             width: 90%;
             margin: 0 auto;
         }
-
-        .ui-body-b .ui-collapsible-heading-toggle {
+        
+        .ui-body-b .ui-collapsible-heading-toggle
+        {
             border-bottom-width: 0px !important;
         }
-
-        .ui-collapsible-heading-toggle .ui-btn-text {
+        
+        .ui-collapsible-heading-toggle .ui-btn-text
+        {
             font-size: 16px !important;
         }
-
-        .styled-select {
+        
+        .styled-select
+        {
             width: 90%;
             height: 34px;
             overflow: hidden;
@@ -61,32 +66,37 @@
             padding-top: 10px;
             text-align: center;
         }
-
-        .label_titulo {
+        
+        .label_titulo
+        {
             font-size: 18px !important;
             color: Black;
             font-weight: 400;
             padding-left: 8px;
         }
-
-        .vinculo_derecha {
+        
+        .vinculo_derecha
+        {
             float: right;
             padding-right: 1%;
         }
-
-        .vinculo_izquierda {
+        
+        .vinculo_izquierda
+        {
             float: left;
             padding-left: 1%;
             display: none;
         }
-
-        .puntero {
+        
+        .puntero
+        {
             cursor: pointer;
             color: #404040;
             font-weight: bold;
         }
-
-        .borde_listview {
+        
+        .borde_listview
+        {
             color: #404040;
             border: 2px solid rgba(0,0,0,0.2) !important;
             padding: 1%;
@@ -97,17 +107,20 @@
             -moz-border-radius: 10px 10px 10px 10px !important;
             -webkit-border-radius: 10px 10px 10px 10px !important;
         }
-
-        .espacios_listview {
+        
+        .espacios_listview
+        {
             padding: 1%;
             margin: 1%;
         }
-
-        .texto_izq {
+        
+        .texto_izq
+        {
             text-align: left;
         }
-
-        .clase_cargando {
+        
+        .clase_cargando
+        {
             position: fixed;
             background-color: #0D0D0D;
             opacity: 0.5;
@@ -118,32 +131,45 @@
             z-index: 999;
             display: none;
         }
-
-        .icono_cargando {
+        
+        .icono_cargando
+        {
             top: 50%;
             left: 45%;
             position: fixed;
         }
-
-        .ui-body-b .ui-btn-inner.ui-li, .ui-body-b .ui-li-has-thumb {
+        
+        .ui-body-b .ui-btn-inner.ui-li, .ui-body-b .ui-li-has-thumb
+        {
             border-bottom: 1px solid #FF4D4D !important;
         }
-
-        .oculto {
+        
+        .oculto
+        {
             display: none;
         }
-
-        .mensaje_actualizar {
+        
+        .mensaje_actualizar
+        {
             top: 50%;
         }
-
+        
+        .listdo_iconos
+        {
+            padding-bottom: 40px;
+            border: 0 !important;
+        }
+        
+        .imagen_icono
+        {
+            float: left !important;
+        }
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.mobile-1.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
     <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
-    
 </head>
 <body>
     <div class="clase_cargando" id="div_cargando">
@@ -160,7 +186,8 @@
     <div data-role="page" data-theme='b'>
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
             <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
-            <h1>Programas</h1>
+            <h1>
+                Programas</h1>
         </div>
         <div data-role="content" id="contenido_principal">
             <ul data-role="listview" data-divider-theme="b" data-icon="false" data-filter="false"
@@ -181,24 +208,15 @@
                     su conexión e inténtelo nuevamente.
                 </p>
             </div>
-            <strong>
-                <span class="label_titulo">Seleccione
-                    el departamento:</span>
-            </strong>
+            <strong><span class="label_titulo">Seleccione el departamento:</span> </strong>
             <br />
             <select class="styled-select" id="combo_departamento" name="combo_departamento" onchange="cargar_ciudades();">
             </select>
-            <strong>
-                <span class="label_titulo">Seleccione
-                    la ciudad:</span>
-            </strong>
+            <strong><span class="label_titulo">Seleccione la ciudad:</span> </strong>
             <br />
             <select class="styled-select" id="combo_municipio" name="combo_municipio" onchange="cargar_datos();">
             </select>
-            <strong>
-                <span class="label_titulo">Seleccione
-                    el estado del programa:</span>
-            </strong>
+            <strong><span class="label_titulo">Seleccione el estado del programa:</span> </strong>
             <br />
             <select class="styled-select" id="combo_estado" name="combo_estado">
                 <option value="1">ACTIVO</option>
@@ -219,10 +237,9 @@
                 </label>
             </div>
             <div id="flechas_paginacion" class="oculto">
-                <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda"
-                    id="flechas_paginacion_izq">< Anterior</a>
-                <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha"
-                    id="flechas_paginacion_der">Siguiente ></a>
+                <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda" id="flechas_paginacion_izq">
+                    < Anterior</a> <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha" id="flechas_paginacion_der">
+                        Siguiente ></a>
             </div>
             <br />
             <br />
@@ -424,13 +441,11 @@
                     }
                     $("#combo_municipio").append(texto_combo);
                     $("#combo_municipio").selectmenu('refresh');
-                    
-                    if ($("#combo_departamento").val() != "0")
-                    {
+
+                    if ($("#combo_departamento").val() != "0") {
                         cargar_datos();
                     }
-                    else
-                    {
+                    else {
                         $('#div_cargando').hide();
                     }
                 }
@@ -457,7 +472,7 @@
 
             var estado = $("#combo_estado").val();
             var texto = "";
-            
+
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
             var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
@@ -532,7 +547,31 @@
                         if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
                             texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
                         }
-                        texto += "  </p> <br>";
+                        texto += "</p><br />";
+                        texto += "<div style=\"text-align: right;\">" +
+                                "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "color: #404040 !important;\" ></a>" +
+                                "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "color: #404040 !important;\" ></a>" +
+                                "</a>" +
+                            "</div>";
+                        //                        texto += "<ul>";
+                        //                        texto += "<li><a href='#' onclick='abrirFacebook()' data-icon='facebook'></a></li>";
+                        //                        texto += "<li><a href='#' onclick='abrirTwitter()' data-icon='twitter'></a></li>";
+                        //                        texto += "<li><a href='#' onclick='abrirYoutube()' data-icon='youtube'></a></li>";
+                        //                        texto += "</ul>";
+                        //                        texto += "                    <ul class='listdo_iconos'>";
+                        //                        texto += "<li class='imagen_icono' data-icon='dribble'><a href='http://www.usta.edu.co/index.php' target='_blank'>sitio web</a>";
+                        //                        texto += "</li>";
+                        //                        texto += "<li class='imagen_icono' data-icon='list'><a href='#' target='_blank'>Convocatorias</a>";
+                        //                        texto += "</li>";
+                        //                        texto += "<li class='imagen_icono' data-icon='facebook'><a target='_blank' href='http://www.facebook.com/share.php?u=http://www.unidadvictimas.gov.co/index.php/en/acerca-de-la-unidad/snariv&title=Compartir Convocatoria'>facebook</a>";
+                        //                        texto += "</li>";
+                        //                        texto += "<li class='imagen_icono' data-icon='twitter'><a target='_blank' href='http://twitter.com/home?status=Convocatoria'>twitter</a>";
+                        //                        texto += "</li>";
+                        //                        texto += "<li class='imagen_icono' data-icon='youtube'><a target='_blank' href='http://www.youtube.com/'>youtube</a>";
+                        //                        texto += "</li>";
+                        //                        texto += "</ul>";
                         texto += "</div></li>";
                         cont++;
                         numeropp++;
@@ -645,21 +684,18 @@
                 $('#label_registros').html("Programas " + items_pagina + " a " + items_final + " de " + cont);
             }
         }
-    
-    function abrirFacebook ()
-    {
-        window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
-    }
-    
-    function abrirTwitter ()
-    {
-        window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
-    }
-    
-    function abrirYoutube ()
-    {
-        window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
-    }
+
+        function abrirFacebook() {
+            window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+
+        function abrirTwitter() {
+            window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+
+        function abrirYoutube() {
+            window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
+        }
 
 
     </script>
