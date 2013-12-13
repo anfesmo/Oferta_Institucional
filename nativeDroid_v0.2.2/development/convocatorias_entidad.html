@@ -139,8 +139,8 @@
 
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.mobile-1.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
     <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
     
@@ -297,6 +297,7 @@
         });
 
         function cargar_departamentos() {
+            estados_cont = 0;
             $('#div_cargando').show();
             $("#combo_departamento").find('option').remove().end().attr("selected", "selected");
             var xmlhttp = new window.XMLHttpRequest();
@@ -318,38 +319,55 @@
                       '</soapenv:Envelope>';
             xmlhttp.setRequestHeader('Content-Type', 'text/xml');
             xmlhttp.onreadystatechange = function () {
+                estados_cont++;
                 if (xmlhttp.readyState == 4) {
-                    try { //Internet Explorer
-                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-                        xmlDoc.async = "false";
-                        xmlDoc.loadXML(this.responseText);
-                    }
-                    catch (e) {
-                        try { // Firefox, Mozilla, Opera, etc.
-                            parser = new DOMParser();
-                            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                    if (estados_cont > 1) {
+                        try { //Internet Explorer
+                            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                            xmlDoc.async = "false";
+                            xmlDoc.loadXML(this.responseText);
                         }
                         catch (e) {
-                            //alert(e.message);
-                            return;
+                            try { // Firefox, Mozilla, Opera, etc.
+                                parser = new DOMParser();
+                                xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                            }
+                            catch (e) {
+                                //alert(e.message);
+                                return;
+                            }
                         }
-                    }
-                    
-                    var nodes = xmlDoc.getElementsByTagName("departamento");
-                    var cantidad = nodes.length;
-                    var texto_combo = "";
-                    for (var i = 0; i < cantidad; i++) {
-                        if (xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue == localStorage.getItem("nombre_departamento")) {
-                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "' selected>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
-                        } else {
-                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                        var nodesND = xmlDoc.getElementsByTagName("consultar_departamentosResult");
+                        var cantidadND = nodesND.length;
+                        if (cantidadND == 0) {
+                            $("#div_app_desactualizada").show();
+                            $('#div_cargando').hide();
+                            $('#contenido_principal').hide();
                         }
-                    }
+                        else {
+                            var nodes = xmlDoc.getElementsByTagName("departamento");
+                            var cantidad = nodes.length;
+                            var texto_combo = "";
+                            for (var i = 0; i < cantidad; i++) {
+                                if (xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue == localStorage.getItem("nombre_departamento")) {
+                                    texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "' selected>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                                } else {
+                                    texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                                }
+                            }
 
-                    $("#combo_departamento").append(texto_combo);
-                    $("#combo_departamento").selectmenu('refresh');
-                    cargar_ciudades();
-                    
+                            $("#combo_departamento").append(texto_combo);
+                            $("#combo_departamento").selectmenu('refresh');
+                            cargar_ciudades();
+                        }
+                    }
+                    else {
+                        $('#div_sininternet').show();
+                        $('#mensaje_sinregistros').hide();
+                        $('#flechas_paginacion_izq').hide();
+                        $('#flechas_paginacion_der').hide();
+                        $('#div_cargando').hide();
+                    }
                 }
             }
             xmlhttp.send(sr);
@@ -406,14 +424,25 @@
                     }
                     $("#combo_municipio").append(texto_combo);
                     $("#combo_municipio").selectmenu('refresh');
-                    cargar_datos();
+                    
+                    if ($("#combo_departamento").val() != "0")
+                    {
+                        cargar_datos();
+                    }
+                    else
+                    {
+                        $('#div_cargando').hide();
+                    }
                 }
             }
             xmlhttp.send(sr);
         }
 
         function cargar_datos() {
-            estados_cont = 0;
+            pagina_actual = 1;
+            ultima_pagina = 1;
+            primera_pagina = 1;
+            numero_items = 0;
             $("#listadoProgramas").html("");
             var depto = $("#combo_departamento option:selected").text();
             var municipio = $("#combo_municipio option:selected").text();
@@ -428,7 +457,7 @@
 
             var estado = $("#combo_estado").val();
             var texto = "";
-
+            
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
             var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
@@ -449,125 +478,108 @@
 
             xmlhttp.setRequestHeader('Content-Type', 'text/xml');
             xmlhttp.onreadystatechange = function () {
-                estados_cont++;
                 if (xmlhttp.readyState == 4) {
-                    if (estados_cont > 1) {
-                        try { //Internet Explorer
-                            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-                            xmlDoc.async = "false";
-                            xmlDoc.loadXML(this.responseText);
+                    try { //Internet Explorer
+                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                        xmlDoc.async = "false";
+                        xmlDoc.loadXML(this.responseText);
+                    }
+                    catch (e) {
+                        try { // Firefox, Mozilla, Opera, etc.
+                            parser = new DOMParser();
+                            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
                         }
                         catch (e) {
-                            try { // Firefox, Mozilla, Opera, etc.
-                                parser = new DOMParser();
-                                xmlDoc = parser.parseFromString(this.responseText, "text/xml");
-                            }
-                            catch (e) {
-                                //alert(e.message);
-                                return;
-                            }
-                        }
-                        var nodesND = xmlDoc.getElementsByTagName("NewDataSet");
-                        var cantidadND = nodesND.length;
-                        if (cantidadND == 0) {
-                            $("#div_app_desactualizada").show();
-                            $('#div_cargando').hide();
-                            $('#contenido_principal').hide();
-                        }
-                        else {
-                            var nodes = xmlDoc.getElementsByTagName("Table");
-                            var cantidad = nodes.length;
-                            cont = 0;
-                            pagina = 1;
-                            numeropp = 0;
-
-                            for (var i = 0; i < cantidad; i++) {
-
-                                texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
-                                if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
-                                    texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
-                                }
-                                texto += "</h2>";
-                                texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
-                                if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
-                                    texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
-                                }
-                                texto += "</p>";
-                                texto += "<p><strong>Fecha de inicio:</strong><br /> ";
-                                if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
-                                    texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
-                                }
-                                texto += "</p>";
-                                texto += "<p><strong>Municipio:</strong><br />";
-                                if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
-                                    texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
-                                }
-                                texto += " </p>";
-                                texto += "<p><strong>Entidad:</strong><br />";
-                                if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
-                                    xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
-                                }
-                                texto += " </p>";
-                                texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
-                                if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
-                                    texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
-                                }
-                                texto += "  </p> <br>";
-                                texto += "</div></li>";
-                                cont++;
-                                numeropp++;
-
-                                if (numeropp == 5) {
-                                    pagina++;
-                                    numeropp = 0;
-                                }
-                            }
-                            $("#listadoProgramas").append(texto);
-                            $("#listadoProgramas").listview("refresh");
-                            $('div[data-role=collapsible]').collapsible({ refresh: true });
-                            $('div[data-role=navbar]').navbar({ refresh: true });
-                            if (cont % 5 == 0) {
-                                ultima_pagina = pagina - 1;
-                            }
-                            else {
-                                ultima_pagina = pagina;
-                            }
-
-                            numero_items = cont;
-                            $('#listadoProgramas .todas').hide();
-                            $('#listadoProgramas .' + primera_pagina).show();
-
-                            if (cont < 5) {
-                                $('#label_registros').html("Programas 1 a " + cont + " de " + cont);
-                            }
-                            else {
-                                $('#label_registros').html("Programas 1 a " + 5 * pagina_actual + " de " + cont);
-                            }
-                            $('#flechas_paginacion_izq').hide();
-                            if (ultima_pagina < 2) {
-
-                                $('#flechas_paginacion_der').hide();
-                            }
-                            else {
-                                $('#flechas_paginacion_der').show();
-                            }
-                            if (cont == 0) {
-                                $('#mensaje_sinregistros').show();
-                                $('#flechas_paginacion').hide();
-                                $("#label_registros").css("display", "none");
-                            }
-                            else {
-                                $('#mensaje_sinregistros').hide();
-                                $('#flechas_paginacion').show();
-                                $("#label_registros").css("display", "block");
-                            }
+                            //alert(e.message);
+                            return;
                         }
                     }
+
+                    var nodes = xmlDoc.getElementsByTagName("Table");
+                    var cantidad = nodes.length;
+                    cont = 0;
+                    pagina = 1;
+                    numeropp = 0;
+
+                    for (var i = 0; i < cantidad; i++) {
+
+                        texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
+                        if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
+                            texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+                        }
+                        texto += "</h2>";
+                        texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
+                        if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
+                            texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                        }
+                        texto += "</p>";
+                        texto += "<p><strong>Fecha de inicio:</strong><br /> ";
+                        if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
+                            texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
+                        }
+                        texto += "</p>";
+                        texto += "<p><strong>Municipio:</strong><br />";
+                        if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
+                            texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
+                        }
+                        texto += " </p>";
+                        texto += "<p><strong>Entidad:</strong><br />";
+                        if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
+                            xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                        }
+                        texto += " </p>";
+                        texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
+                        if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
+                            texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
+                        }
+                        texto += "  </p> <br>";
+                        texto += "</div></li>";
+                        cont++;
+                        numeropp++;
+
+                        if (numeropp == 5) {
+                            pagina++;
+                            numeropp = 0;
+                        }
+                    }
+                    $("#listadoProgramas").append(texto);
+                    $("#listadoProgramas").listview("refresh");
+                    $('div[data-role=collapsible]').collapsible({ refresh: true });
+                    $('div[data-role=navbar]').navbar({ refresh: true });
+                    if (cont % 5 == 0) {
+                        ultima_pagina = pagina - 1;
+                    }
                     else {
-                        $('#div_sininternet').show();
-                        $('#mensaje_sinregistros').hide();
-                        $('#flechas_paginacion_izq').hide();
+                        ultima_pagina = pagina;
+                    }
+
+                    numero_items = cont;
+                    $('#listadoProgramas .todas').hide();
+                    $('#listadoProgramas .' + primera_pagina).show();
+
+                    if (cont < 5) {
+                        $('#label_registros').html("Programas 1 a " + cont + " de " + cont);
+                    }
+                    else {
+                        $('#label_registros').html("Programas 1 a " + 5 * pagina_actual + " de " + cont);
+                    }
+                    $('#flechas_paginacion_izq').hide();
+                    if (ultima_pagina < 2) {
+
                         $('#flechas_paginacion_der').hide();
+                    }
+                    else {
+                        $('#flechas_paginacion_der').show();
+                    }
+                    if (cont == 0) {
+                        $('#mensaje_sinregistros').show();
+                        $('#flechas_paginacion').hide();
+                        $("#label_registros").css("display", "none");
+                    }
+                    else {
+                        $('#mensaje_sinregistros').hide();
+                        $('#flechas_paginacion').show();
+                        $("#label_registros").css("display", "block");
                     }
                     $('#div_cargando').hide();
                 }
