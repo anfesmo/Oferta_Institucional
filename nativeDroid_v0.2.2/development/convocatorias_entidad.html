@@ -458,7 +458,9 @@
 
         function cargar_datos() {
             document.getElementById("txt_palabra").disabled = true;
-            $('#div_cargando').show();
+            if (palabra_clave == "") {
+                $('#div_cargando').show();
+            }
             //setTimeout("$('#div_cargando').hide();", 5000);
             pagina_actual = 1;
             ultima_pagina = 1;
