@@ -480,26 +480,44 @@
 
             var estado = $("#combo_estado").val();
             var texto = "";
-
+			var entidad = localStorage.getItem("nombre_entidad")
             var palabra_clave = $("#txt_palabra").val();
 
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
-            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
-						   '<soapenv:Header/>' +
-						   '<soapenv:Body>' +
-							  '<tem:consultar_oferta>' +
-								 '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
-								 '<tem:id_municipio>' + municipio + '</tem:id_municipio>' +
-								 '<tem:entidad></tem:entidad>' +
-								 '<tem:programa></tem:programa>' +
-								 '<tem:estado>' + estado + '</tem:estado>' +
-								 '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
-								 '<tem:PASSWORD>' + dato_psw + '</tem:PASSWORD>' +
-								 '<tem:opcion>1</tem:opcion>' +
-							  '</tem:consultar_oferta>' +
-						   '</soapenv:Body>' +
-						'</soapenv:Envelope>'
+			if(entidad == ""){
+							var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
+							   '<soapenv:Header/>' +
+							   '<soapenv:Body>' +
+								  '<tem:consultar_oferta>' +
+									 '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
+									 '<tem:id_municipio>' + municipio + '</tem:id_municipio>' +
+									 '<tem:entidad></tem:entidad>' +
+									 '<tem:programa></tem:programa>' +
+									 '<tem:estado>' + estado + '</tem:estado>' +
+									 '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
+									 '<tem:PASSWORD>' + dato_psw + '</tem:PASSWORD>' +
+									 '<tem:opcion>1</tem:opcion>' +
+								  '</tem:consultar_oferta>' +
+							   '</soapenv:Body>' +
+							'</soapenv:Envelope>'
+			}else{
+							var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
+							   '<soapenv:Header/>' +
+							   '<soapenv:Body>' +
+								  '<tem:consultar_oferta>' +
+									 '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
+									 '<tem:id_municipio>' + municipio + '</tem:id_municipio>' +
+									 '<tem:entidad>'+entidad+'</tem:entidad>' +
+									 '<tem:programa></tem:programa>' +
+									 '<tem:estado>' + estado + '</tem:estado>' +
+									 '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
+									 '<tem:PASSWORD>' + dato_psw + '</tem:PASSWORD>' +
+									 '<tem:opcion>1</tem:opcion>' +
+								  '</tem:consultar_oferta>' +
+							   '</soapenv:Body>' +
+							'</soapenv:Envelope>'
+			}
 
             xmlhttp.setRequestHeader('Content-Type', 'text/xml');
             xmlhttp.onreadystatechange = function () {
@@ -570,6 +588,7 @@
                                 }
                                 texto += " </p>";
                                 texto += "<p><strong>Entidad:</strong><br />";
+								alert("hola");
                                 if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
                                     xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
                                 }
