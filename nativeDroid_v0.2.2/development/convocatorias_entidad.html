@@ -223,6 +223,9 @@
                 <option value="2">INACTIVO</option>
                 <option value="0">TODOS</option>
             </select>
+            <br />
+            <input class="styled-select" type="text" id="txt_palabra" placeholder="Ingrese aquí una palabra clave"
+                name="txt_palabra" oninput="cargar_datos();" />
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
                 id="listadoProgramas">
             </ul>
@@ -454,6 +457,9 @@
         }
 
         function cargar_datos() {
+            document.getElementById("txt_palabra").disabled = true;
+            $('#div_cargando').show();
+            //setTimeout("$('#div_cargando').hide();", 5000);
             pagina_actual = 1;
             ultima_pagina = 1;
             primera_pagina = 1;
@@ -472,6 +478,8 @@
 
             var estado = $("#combo_estado").val();
             var texto = "";
+
+            var palabra_clave = $("#txt_palabra").val();
 
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
@@ -515,66 +523,135 @@
                     cont = 0;
                     pagina = 1;
                     numeropp = 0;
-
+                    var bandera = 0;
+                    var texto_aux = "";
                     for (var i = 0; i < cantidad; i++) {
+                        bandera = 0;
+                        if (palabra_clave != "") {
 
-                        texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
-                        if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
-                            texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
-                        }
-                        texto += "</h2>";
-                        texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
-                        if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
-                            texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
-                        }
-                        texto += "</p>";
-                        texto += "<p><strong>Fecha de inicio:</strong><br /> ";
-                        if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
-                            texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
-                        }
-                        texto += "</p>";
-                        texto += "<p><strong>Municipio:</strong><br />";
-                        if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
-                            texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
-                        }
-                        texto += " </p>";
-                        texto += "<p><strong>Entidad:</strong><br />";
-                        if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
-                            xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
-                        }
-                        texto += " </p>";
-                        texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
-                        if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
-                            texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
-                        }
-                        texto += "</p><br />";
-                        texto += "<div style=\"text-align: right;\">" +
+                            //texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
+                            if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
+                                texto_aux = xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+                                if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
+                                    bandera = 1;
+                                }
+                            }
+                            //texto += "</h2>";
+                            //texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
+                            if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
+                                //texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                                texto_aux = xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                                if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
+                                    bandera = 1;
+                                }
+                            }
+
+                            if (bandera == 1) {
+                                texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
+                                if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
+                                    texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+                                }
+                                texto += "</h2>";
+                                texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
+                                if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
+                                    texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                                }
+                                texto += "</p>";
+                                texto += "<p><strong>Fecha de inicio:</strong><br /> ";
+                                if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
+                                    texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
+                                }
+                                texto += "</p>";
+                                texto += "<p><strong>Municipio:</strong><br />";
+                                if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
+                                    texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
+                                }
+                                texto += " </p>";
+                                texto += "<p><strong>Entidad:</strong><br />";
+                                if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
+                                    xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                                }
+                                texto += " </p>";
+                                texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
+                                if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
+                                    texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
+                                }
+                                texto += "</p><br />";
+                                texto += "<div style=\"text-align: right;\">" +
                                 "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
                                     "color: #404040 !important;\" ></a>" +
                                 "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
                                     "color: #404040 !important;\" ></a>" +
                                 "</a>" +
                             "</div>";
-                        //                        texto += "<ul>";
-                        //                        texto += "<li><a href='#' onclick='abrirFacebook()' data-icon='facebook'></a></li>";
-                        //                        texto += "<li><a href='#' onclick='abrirTwitter()' data-icon='twitter'></a></li>";
-                        //                        texto += "<li><a href='#' onclick='abrirYoutube()' data-icon='youtube'></a></li>";
-                        //                        texto += "</ul>";
-                        //                        texto += "                    <ul class='listdo_iconos'>";
-                        //                        texto += "<li class='imagen_icono' data-icon='dribble'><a href='http://www.usta.edu.co/index.php' target='_blank'>sitio web</a>";
-                        //                        texto += "</li>";
-                        //                        texto += "<li class='imagen_icono' data-icon='list'><a href='#' target='_blank'>Convocatorias</a>";
-                        //                        texto += "</li>";
-                        //                        texto += "<li class='imagen_icono' data-icon='facebook'><a target='_blank' href='http://www.facebook.com/share.php?u=http://www.unidadvictimas.gov.co/index.php/en/acerca-de-la-unidad/snariv&title=Compartir Convocatoria'>facebook</a>";
-                        //                        texto += "</li>";
-                        //                        texto += "<li class='imagen_icono' data-icon='twitter'><a target='_blank' href='http://twitter.com/home?status=Convocatoria'>twitter</a>";
-                        //                        texto += "</li>";
-                        //                        texto += "<li class='imagen_icono' data-icon='youtube'><a target='_blank' href='http://www.youtube.com/'>youtube</a>";
-                        //                        texto += "</li>";
-                        //                        texto += "</ul>";
-                        texto += "</div></li>";
-                        cont++;
-                        numeropp++;
+                                texto += "</div></li>";
+                                cont++;
+                                numeropp++;
+                            }
+
+                        }
+                        else {
+                            texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
+                            if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
+                                texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+                            }
+                            texto += "</h2>";
+                            texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
+                            if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
+                                texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                            }
+                            texto += "</p>";
+                            texto += "<p><strong>Fecha de inicio:</strong><br /> ";
+                            if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
+                                texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
+                            }
+                            texto += "</p>";
+                            texto += "<p><strong>Municipio:</strong><br />";
+                            if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
+                                texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
+                            }
+                            texto += " </p>";
+                            texto += "<p><strong>Entidad:</strong><br />";
+                            if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
+                                xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                            }
+                            texto += " </p>";
+                            texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
+                            if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
+                                texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
+                            }
+                            texto += "</p><br />";
+                            texto += "<div style=\"text-align: right;\">" +
+                                "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "color: #404040 !important;\" ></a>" +
+                                "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "color: #404040 !important;\" ></a>" +
+                                "</a>" +
+                            "</div>";
+                            //                        texto += "<ul>";
+                            //                        texto += "<li><a href='#' onclick='abrirFacebook()' data-icon='facebook'></a></li>";
+                            //                        texto += "<li><a href='#' onclick='abrirTwitter()' data-icon='twitter'></a></li>";
+                            //                        texto += "<li><a href='#' onclick='abrirYoutube()' data-icon='youtube'></a></li>";
+                            //                        texto += "</ul>";
+                            //                        texto += "                    <ul class='listdo_iconos'>";
+                            //                        texto += "<li class='imagen_icono' data-icon='dribble'><a href='http://www.usta.edu.co/index.php' target='_blank'>sitio web</a>";
+                            //                        texto += "</li>";
+                            //                        texto += "<li class='imagen_icono' data-icon='list'><a href='#' target='_blank'>Convocatorias</a>";
+                            //                        texto += "</li>";
+                            //                        texto += "<li class='imagen_icono' data-icon='facebook'><a target='_blank' href='http://www.facebook.com/share.php?u=http://www.unidadvictimas.gov.co/index.php/en/acerca-de-la-unidad/snariv&title=Compartir Convocatoria'>facebook</a>";
+                            //                        texto += "</li>";
+                            //                        texto += "<li class='imagen_icono' data-icon='twitter'><a target='_blank' href='http://twitter.com/home?status=Convocatoria'>twitter</a>";
+                            //                        texto += "</li>";
+                            //                        texto += "<li class='imagen_icono' data-icon='youtube'><a target='_blank' href='http://www.youtube.com/'>youtube</a>";
+                            //                        texto += "</li>";
+                            //                        texto += "</ul>";
+                            texto += "</div></li>";
+                            cont++;
+                            numeropp++;
+                        }
+
+
+
 
                         if (numeropp == 5) {
                             pagina++;
@@ -621,6 +698,10 @@
                         $("#label_registros").css("display", "block");
                     }
                     $('#div_cargando').hide();
+                    document.getElementById("txt_palabra").disabled = false;
+                    if (palabra_clave != "") {
+                        document.getElementById("txt_palabra").focus();
+                    }
                 }
             }
             xmlhttp.send(sr);
