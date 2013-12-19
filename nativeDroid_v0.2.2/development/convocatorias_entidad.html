@@ -495,123 +495,162 @@
                     $("#combo_municipio").append(texto_combo);
                     $("#combo_municipio").selectmenu('refresh');
                     $('#div_cargando').hide();
+                    if (localStorage.getItem("nombre_entidad") != null) {
+                        cargar_datos();
+                    }
                 }
             }
             xmlhttp.send(sr);
         }
 
         function cargar_datos() {
-            $('#div_cargando').show();
-            document.getElementById("txt_palabra").disabled = true;
-            if (palabra_clave == "") {
+
+            if ($("#combo_departamento").val() != "0")
+            {
                 $('#div_cargando').show();
-            }
-            //setTimeout("$('#div_cargando').hide();", 5000);
-            pagina_actual = 1;
-            ultima_pagina = 1;
-            primera_pagina = 1;
-            numero_items = 0;
-            $("#listadoProgramas").html("");
-            var depto = $("#combo_departamento option:selected").text();
-            var municipio = $("#combo_municipio option:selected").text();
+                document.getElementById("txt_palabra").disabled = true;
+                if (palabra_clave == "") {
+                    $('#div_cargando').show();
+                }
+                //setTimeout("$('#div_cargando').hide();", 5000);
+                pagina_actual = 1;
+                ultima_pagina = 1;
+                primera_pagina = 1;
+                numero_items = 0;
+                $("#listadoProgramas").html("");
+                var depto = $("#combo_departamento option:selected").text();
+                var municipio = $("#combo_municipio option:selected").text();
 
-            if (municipio == "0 SELECCIONE") {
-                municipio = "";
-            }
+                if (municipio == "0 SELECCIONE") {
+                    municipio = "";
+                }
 
-            if (depto == "0 SELECCIONE") {
-                depto = "";
-            }
+                if (depto == "0 SELECCIONE") {
+                    depto = "";
+                }
 
-            var estado = $("#combo_estado").val();
-            var texto = "";
-			var entidad = localStorage.getItem("nombre_entidad")
-            var palabra_clave = $("#txt_palabra").val();
+                var estado = $("#combo_estado").val();
+                var texto = "";
+                var entidad = localStorage.getItem("nombre_entidad")
+                var palabra_clave = $("#txt_palabra").val();
 
-            var xmlhttp = new window.XMLHttpRequest();
-            xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
-			if(entidad == ""){
-							var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
-							   '<soapenv:Header/>' +
-							   '<soapenv:Body>' +
-								  '<tem:consultar_oferta>' +
-									 '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
-									 '<tem:id_municipio>' + municipio + '</tem:id_municipio>' +
-									 '<tem:entidad></tem:entidad>' +
-									 '<tem:programa></tem:programa>' +
-									 '<tem:estado>' + estado + '</tem:estado>' +
-									 '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
-									 '<tem:PASSWORD>' + dato_psw + '</tem:PASSWORD>' +
-									 '<tem:opcion>1</tem:opcion>' +
-								  '</tem:consultar_oferta>' +
-							   '</soapenv:Body>' +
-							'</soapenv:Envelope>'
-			}else{
-							var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
-							   '<soapenv:Header/>' +
-							   '<soapenv:Body>' +
-								  '<tem:consultar_oferta>' +
-									 '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
-									 '<tem:id_municipio>' + municipio + '</tem:id_municipio>' +
-									 '<tem:entidad>'+entidad+'</tem:entidad>' +
-									 '<tem:programa></tem:programa>' +
-									 '<tem:estado>' + estado + '</tem:estado>' +
-									 '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
-									 '<tem:PASSWORD>' + dato_psw + '</tem:PASSWORD>' +
-									 '<tem:opcion>1</tem:opcion>' +
-								  '</tem:consultar_oferta>' +
-							   '</soapenv:Body>' +
-							'</soapenv:Envelope>'
-			}
+                var entidad = "";
 
-            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4) {
-                    try { //Internet Explorer
-                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-                        xmlDoc.async = "false";
-                        xmlDoc.loadXML(this.responseText);
-                    }
-                    catch (e) {
-                        try { // Firefox, Mozilla, Opera, etc.
-                            parser = new DOMParser();
-                            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                if (localStorage.getItem("nombre_entidad") != null) {
+                    entidad = localStorage.getItem("nombre_entidad");
+                }
+
+                var xmlhttp = new window.XMLHttpRequest();
+                xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
+
+                var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
+                    '<soapenv:Header/>' +
+                    '<soapenv:Body>' +
+                        '<tem:consultar_oferta>' +
+                            '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
+                            '<tem:id_municipio>' + municipio + '</tem:id_municipio>' +
+                            '<tem:entidad>'+entidad+'</tem:entidad>' +
+                            '<tem:programa></tem:programa>' +
+                            '<tem:estado>' + estado + '</tem:estado>' +
+                            '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
+                            '<tem:PASSWORD>' + dato_psw + '</tem:PASSWORD>' +
+                            '<tem:opcion>1</tem:opcion>' +
+                        '</tem:consultar_oferta>' +
+                    '</soapenv:Body>' +
+                '</soapenv:Envelope>'
+
+                xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4) {
+                        try { //Internet Explorer
+                            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                            xmlDoc.async = "false";
+                            xmlDoc.loadXML(this.responseText);
                         }
                         catch (e) {
-                            //alert(e.message);
-                            return;
+                            try { // Firefox, Mozilla, Opera, etc.
+                                parser = new DOMParser();
+                                xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+                            }
+                            catch (e) {
+                                //alert(e.message);
+                                return;
+                            }
                         }
-                    }
 
-                    var nodes = xmlDoc.getElementsByTagName("Table");
-                    var cantidad = nodes.length;
-                    cont = 0;
-                    pagina = 1;
-                    numeropp = 0;
-                    var bandera = 0;
-                    var texto_aux = "";
-                    for (var i = 0; i < cantidad; i++) {
-                        bandera = 0;
-                        if (palabra_clave != "") {
+                        var nodes = xmlDoc.getElementsByTagName("Table");
+                        var cantidad = nodes.length;
+                        cont = 0;
+                        pagina = 1;
+                        numeropp = 0;
+                        var bandera = 0;
+                        var texto_aux = "";
+                        for (var i = 0; i < cantidad; i++) {
+                            bandera = 0;
+                            if (palabra_clave != "") {
 
-                            //texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
-                            if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
-                                texto_aux = xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
-                                if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
-                                    bandera = 1;
+                                //texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
+                                if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
+                                    texto_aux = xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+                                    if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
+                                        bandera = 1;
+                                    }
                                 }
-                            }
-                            //texto += "</h2>";
-                            //texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
-                            if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
-                                //texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
-                                texto_aux = xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
-                                if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
-                                    bandera = 1;
+                                //texto += "</h2>";
+                                //texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
+                                if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
+                                    //texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                                    texto_aux = xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                                    if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
+                                        bandera = 1;
+                                    }
                                 }
-                            }
 
-                            if (bandera == 1) {
+                                if (bandera == 1) {
+                                    texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
+                                    if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
+                                        texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+                                    }
+                                    texto += "</h2>";
+                                    texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
+                                    if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
+                                        texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
+                                    }
+                                    texto += "</p>";
+                                    texto += "<p><strong>Fecha de inicio:</strong><br /> ";
+                                    if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
+                                        texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
+                                    }
+                                    texto += "</p>";
+                                    texto += "<p><strong>Municipio:</strong><br />";
+                                    if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
+                                        texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
+                                    }
+                                    texto += " </p>";
+                                    texto += "<p><strong>Entidad:</strong><br />";
+                                    if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
+                                        texto += xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                                    }
+                                    texto += " </p>";
+                                    texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
+                                    if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
+                                        texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
+                                    }
+                                    texto += "</p><br />";
+                                    texto += "<div style=\"text-align: right;\">" +
+                                    "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                        "color: #404040 !important;\" ></a>" +
+                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                        "color: #404040 !important;\" ></a>" +
+                                    "</a>" +
+                                "</div>";
+                                    texto += "</div></li>";
+                                    cont++;
+                                    numeropp++;
+                                }
+
+                            }
+                            else {
                                 texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
                                 if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
                                     texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
@@ -633,9 +672,8 @@
                                 }
                                 texto += " </p>";
                                 texto += "<p><strong>Entidad:</strong><br />";
-								alert("hola");
                                 if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
-                                    xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                                    texto += xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
                                 }
                                 texto += " </p>";
                                 texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
@@ -644,133 +682,90 @@
                                 }
                                 texto += "</p><br />";
                                 texto += "<div style=\"text-align: right;\">" +
-                                "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
-                                    "color: #404040 !important;\" ></a>" +
-                                "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
-                                    "color: #404040 !important;\" ></a>" +
-                                "</a>" +
-                            "</div>";
+                                    "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                        "color: #404040 !important;\" ></a>" +
+                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                        "color: #404040 !important;\" ></a>" +
+                                    "</a>" +
+                                "</div>";
+                                //                        texto += "<ul>";
+                                //                        texto += "<li><a href='#' onclick='abrirFacebook()' data-icon='facebook'></a></li>";
+                                //                        texto += "<li><a href='#' onclick='abrirTwitter()' data-icon='twitter'></a></li>";
+                                //                        texto += "<li><a href='#' onclick='abrirYoutube()' data-icon='youtube'></a></li>";
+                                //                        texto += "</ul>";
+                                //                        texto += "                    <ul class='listdo_iconos'>";
+                                //                        texto += "<li class='imagen_icono' data-icon='dribble'><a href='http://www.usta.edu.co/index.php' target='_blank'>sitio web</a>";
+                                //                        texto += "</li>";
+                                //                        texto += "<li class='imagen_icono' data-icon='list'><a href='#' target='_blank'>Convocatorias</a>";
+                                //                        texto += "</li>";
+                                //                        texto += "<li class='imagen_icono' data-icon='facebook'><a target='_blank' href='http://www.facebook.com/share.php?u=http://www.unidadvictimas.gov.co/index.php/en/acerca-de-la-unidad/snariv&title=Compartir Convocatoria'>facebook</a>";
+                                //                        texto += "</li>";
+                                //                        texto += "<li class='imagen_icono' data-icon='twitter'><a target='_blank' href='http://twitter.com/home?status=Convocatoria'>twitter</a>";
+                                //                        texto += "</li>";
+                                //                        texto += "<li class='imagen_icono' data-icon='youtube'><a target='_blank' href='http://www.youtube.com/'>youtube</a>";
+                                //                        texto += "</li>";
+                                //                        texto += "</ul>";
                                 texto += "</div></li>";
                                 cont++;
                                 numeropp++;
                             }
 
+
+
+
+                            if (numeropp == 5) {
+                                pagina++;
+                                numeropp = 0;
+                            }
+                        }
+                        $("#listadoProgramas").append(texto);
+                        $("#listadoProgramas").listview("refresh");
+                        $('div[data-role=collapsible]').collapsible({ refresh: true });
+                        $('div[data-role=navbar]').navbar({ refresh: true });
+                        if (cont % 5 == 0) {
+                            ultima_pagina = pagina - 1;
                         }
                         else {
-                            texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
-                            if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
-                                texto += xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
-                            }
-                            texto += "</h2>";
-                            texto += "<p class='parra_texto ui-li-desc'><strong>Descripci&oacute;n programa:</strong><br />";
-                            if (xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes.length > 0) {
-                                texto += xmlDoc.getElementsByTagName("DESCRIPCION_PROGRAMA")[i].childNodes[0].nodeValue;
-                            }
-                            texto += "</p>";
-                            texto += "<p><strong>Fecha de inicio:</strong><br /> ";
-                            if (xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i] != null && xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes.length > 0) {
-                                texto += xmlDoc.getElementsByTagName("FECHA_INICIO_OFERTA")[i].childNodes[0].nodeValue.substring(0, 10);
-                            }
-                            texto += "</p>";
-                            texto += "<p><strong>Municipio:</strong><br />";
-                            if (xmlDoc.getElementsByTagName("MUNICIPIO")[i] != null && xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes.length > 0) {
-                                texto += xmlDoc.getElementsByTagName("MUNICIPIO")[i].childNodes[0].nodeValue;
-                            }
-                            texto += " </p>";
-                            texto += "<p><strong>Entidad:</strong><br />";
-                            if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
-                                xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
-                            }
-                            texto += " </p>";
-                            texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
-                            if (xmlDoc.getElementsByTagName("HORARIO")[i] != null && xmlDoc.getElementsByTagName("HORARIO")[i].childNodes.length > 0) {
-                                texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
-                            }
-                            texto += "</p><br />";
-                            texto += "<div style=\"text-align: right;\">" +
-                                "<a style=\"color: #404040 !important;\" onclick='abrirFacebook()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
-                                    "color: #404040 !important;\" ></a>" +
-                                "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitter()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
-                                    "color: #404040 !important;\" ></a>" +
-                                "</a>" +
-                            "</div>";
-                            //                        texto += "<ul>";
-                            //                        texto += "<li><a href='#' onclick='abrirFacebook()' data-icon='facebook'></a></li>";
-                            //                        texto += "<li><a href='#' onclick='abrirTwitter()' data-icon='twitter'></a></li>";
-                            //                        texto += "<li><a href='#' onclick='abrirYoutube()' data-icon='youtube'></a></li>";
-                            //                        texto += "</ul>";
-                            //                        texto += "                    <ul class='listdo_iconos'>";
-                            //                        texto += "<li class='imagen_icono' data-icon='dribble'><a href='http://www.usta.edu.co/index.php' target='_blank'>sitio web</a>";
-                            //                        texto += "</li>";
-                            //                        texto += "<li class='imagen_icono' data-icon='list'><a href='#' target='_blank'>Convocatorias</a>";
-                            //                        texto += "</li>";
-                            //                        texto += "<li class='imagen_icono' data-icon='facebook'><a target='_blank' href='http://www.facebook.com/share.php?u=http://www.unidadvictimas.gov.co/index.php/en/acerca-de-la-unidad/snariv&title=Compartir Convocatoria'>facebook</a>";
-                            //                        texto += "</li>";
-                            //                        texto += "<li class='imagen_icono' data-icon='twitter'><a target='_blank' href='http://twitter.com/home?status=Convocatoria'>twitter</a>";
-                            //                        texto += "</li>";
-                            //                        texto += "<li class='imagen_icono' data-icon='youtube'><a target='_blank' href='http://www.youtube.com/'>youtube</a>";
-                            //                        texto += "</li>";
-                            //                        texto += "</ul>";
-                            texto += "</div></li>";
-                            cont++;
-                            numeropp++;
+                            ultima_pagina = pagina;
                         }
 
+                        numero_items = cont;
+                        $('#listadoProgramas .todas').hide();
+                        $('#listadoProgramas .' + primera_pagina).show();
 
-
-
-                        if (numeropp == 5) {
-                            pagina++;
-                            numeropp = 0;
+                        if (cont < 5) {
+                            $('#label_registros').html("Programas 1 a " + cont + " de " + cont);
                         }
-                    }
-                    $("#listadoProgramas").append(texto);
-                    $("#listadoProgramas").listview("refresh");
-                    $('div[data-role=collapsible]').collapsible({ refresh: true });
-                    $('div[data-role=navbar]').navbar({ refresh: true });
-                    if (cont % 5 == 0) {
-                        ultima_pagina = pagina - 1;
-                    }
-                    else {
-                        ultima_pagina = pagina;
-                    }
+                        else {
+                            $('#label_registros').html("Programas 1 a " + 5 * pagina_actual + " de " + cont);
+                        }
+                        $('#flechas_paginacion_izq').hide();
+                        if (ultima_pagina < 2) {
 
-                    numero_items = cont;
-                    $('#listadoProgramas .todas').hide();
-                    $('#listadoProgramas .' + primera_pagina).show();
-
-                    if (cont < 5) {
-                        $('#label_registros').html("Programas 1 a " + cont + " de " + cont);
-                    }
-                    else {
-                        $('#label_registros').html("Programas 1 a " + 5 * pagina_actual + " de " + cont);
-                    }
-                    $('#flechas_paginacion_izq').hide();
-                    if (ultima_pagina < 2) {
-
-                        $('#flechas_paginacion_der').hide();
-                    }
-                    else {
-                        $('#flechas_paginacion_der').show();
-                    }
-                    if (cont == 0) {
-                        $('#mensaje_sinregistros').show();
-                        $('#flechas_paginacion').hide();
-                        $("#label_registros").css("display", "none");
-                    }
-                    else {
-                        $('#mensaje_sinregistros').hide();
-                        $('#flechas_paginacion').show();
-                        $("#label_registros").css("display", "block");
-                    }
-                    $('#div_cargando').hide();
-                    document.getElementById("txt_palabra").disabled = false;
-                    if (palabra_clave != "") {
-                        document.getElementById("txt_palabra").focus();
+                            $('#flechas_paginacion_der').hide();
+                        }
+                        else {
+                            $('#flechas_paginacion_der').show();
+                        }
+                        if (cont == 0) {
+                            $('#mensaje_sinregistros').show();
+                            $('#flechas_paginacion').hide();
+                            $("#label_registros").css("display", "none");
+                        }
+                        else {
+                            $('#mensaje_sinregistros').hide();
+                            $('#flechas_paginacion').show();
+                            $("#label_registros").css("display", "block");
+                        }
+                        $('#div_cargando').hide();
+                        document.getElementById("txt_palabra").disabled = false;
+                        if (palabra_clave != "") {
+                            document.getElementById("txt_palabra").focus();
+                        }
                     }
                 }
+                xmlhttp.send(sr);
             }
-            xmlhttp.send(sr);
         }
 
         function omitirAcentos(text) {

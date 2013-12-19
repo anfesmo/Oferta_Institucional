@@ -110,9 +110,9 @@
     </div>
     <script>
 		 $(document).ready(function () {            
-			localStorage.setItem("nombre_entidad", "");
-            localStorage.setItem("nombre_departamento", "");
-            localStorage.setItem("nombre_municipio", "");
+		     localStorage.removeItem("nombre_entidad");
+		     localStorage.removeItem("nombre_departamento");
+		     localStorage.removeItem("nombre_municipio");
         });
 	
         function crearStorage() {
