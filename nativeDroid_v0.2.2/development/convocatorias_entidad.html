@@ -630,6 +630,7 @@
                                     texto += "<p><strong>Entidad:</strong><br />";
                                     if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
                                         texto += xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                                        alert(xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue);
                                     }
                                     texto += " </p>";
                                     texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
@@ -674,6 +675,7 @@
                                 texto += "<p><strong>Entidad:</strong><br />";
                                 if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
                                     texto += xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                                    alert(xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue);
                                 }
                                 texto += " </p>";
                                 texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";

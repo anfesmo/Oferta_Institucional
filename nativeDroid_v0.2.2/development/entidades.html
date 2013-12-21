@@ -285,7 +285,7 @@
                             var cantidad = nodes.length;
                             var texto_combo = "";
                             for (var i = 0; i < cantidad; i++) {
-                                texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                                texto_combo += "<option value='" + xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
                             }
                             $("#combo_departamento").append(texto_combo);
                             //$("#combo_departamento").val("5");
@@ -308,6 +308,7 @@
         function cargar_ciudades() {
             $('#div_cargando').show();
             $("#combo_municipio").find('option').remove().end().selectmenu('refresh');
+            depto = $("#combo_departamento").val();
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/WS_MAARIV.asmx?wsdl', true);
             var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
@@ -315,7 +316,7 @@
                         '<soapenv:Body>' +
                             '<tem:consultar_municipios_por_departamento>' +
                                 '<!--Optional:-->' +
-                                '<tem:id_departamento>' + $("#combo_departamento").val() + '</tem:id_departamento>' +
+                                '<tem:id_departamento>' + depto + '</tem:id_departamento>' +
                                 '<!--Optional:-->' +
                                 '<tem:USUARIO>' + dato_usuario + '</tem:USUARIO>' +
                                 '<!--Optional:-->' +
@@ -347,7 +348,7 @@
                     var cantidad = nodes.length;
                     var texto_combo = "";
                     for (var i = 0; i < cantidad; i++) {
-                        texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue + "</option>";
+                        texto_combo += "<option value='" + xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue + "'>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue + "</option>";
                     }
                     $("#combo_municipio").append(texto_combo);
                     //$("#combo_municipio").val("5001");
