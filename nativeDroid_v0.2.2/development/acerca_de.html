@@ -27,7 +27,30 @@
             .titulos 
             {
                 padding-top: 20px;
-            }       
+            }   
+
+			.centrado{
+				text-align: center;
+				margin-bottom: 0;
+				margin-top:3px;
+			}
+			.centrado p{
+				margin-bottom: 0;
+				margin-top:3px;
+			}
+			
+			.centrado h2{
+				margin-bottom: 0;
+			}
+			
+			#apoyo{
+				margin-bottom: 9px;
+			}
+			
+			.pie-acerca{
+				font-size: 14px;
+			}
+					
         </style>
     </head>
     <body>
@@ -62,30 +85,22 @@
             </div>
             
         </div>
-        <div class="inset">
-            <h2>Oferta Institucional</h2>
-            <h2>Versi&oacute;n</h2>
-            <p>1.0</p>
-            <h2>Equipo de Desarrollo</h2>
-            <p>Alexandra Espinosa</p>
-			<p>Andr&eacute;s Escobar</p>
+        <div class="inset centrado">
+            <h2>Oferta Institucional</h2>           
+            <p >Versi&oacute;n 1.0</p>
+            <h2>Desarrollado por</h2>
+            <p >Alexandra Espinosa Mej&iacute;a</p>
+			<p>Andr&eacute;s Felipe Escobar Morales</p>
 			<p>John Eduard L&oacute;pez</p>
             <p>Steven Mu&ntilde;oz</p>
-            <h2>Importante</h2>
-            <p>El uso de esta aplicaci&oacute;n consume datos del dispositivo m&oacute;vil ! </p>
-            <h2>Con el apoyo de</h2>
-            <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
-            <li><a href="http://www.mintic.gov.co/" target="_blank">
-                    <img src="imagenes/mintic.png">
-                    <p class="titulos">Ministerio TIC de Colombia</p>
-                </a>
-            </li>
-            <li><a href="http://www.unidadvictimas.gov.co/" target="_blank">
-                <img src="imagenes/oferta_logo.png">
-                <p class="titulos">Unidad para la Atenci&oacute;n y Reparaci&oacute;n Integral a las V&iacute;ctimas</p>
-            </a></li>
-        </ul>
-
+			
+            <h2 id="apoyo">Con el apoyo de</h2>
+			<img width="50%" src="imagenes/mintic.png" alt="MinTic">
+			<img width="50%" src="imagenes/unidadlogo.png" alt="UARIV">
+			<hr>
+            <p class="pie-acerca">El uso de esta aplicaci&oacute;n consume datos del dispositivo m&oacute;vil</p>
+			<p class="pie-acerca">Todos los derechos reservados - 2013</p>
+			<p class="pie-acerca">Aplicación bajo licencia GNU GPL</p>
         </div>
     </div>
         <script>
