@@ -14,7 +14,8 @@
     <!-- nativeDroid: Color Schemes -->
     <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
     <style type="text/css">
-        .parra_texto {
+        .parra_texto
+        {
             font-weight: 300;
             margin: 7px 0;
             white-space: normal;
@@ -23,22 +24,26 @@
             text-overflow: ellipsis;
             width: 100%;
         }
-
-        .ui-btn-inner {
+        
+        .ui-btn-inner
+        {
             white-space: normal !important;
             width: 90%;
             margin: 0 auto;
         }
-
-        .ui-body-b .ui-collapsible-heading-toggle {
+        
+        .ui-body-b .ui-collapsible-heading-toggle
+        {
             border-bottom-width: 0px !important;
         }
-
-        .ui-collapsible-heading-toggle .ui-btn-text {
+        
+        .ui-collapsible-heading-toggle .ui-btn-text
+        {
             font-size: 16px !important;
         }
-
-        .styled-select {
+        
+        .styled-select
+        {
             width: 90%;
             height: 34px;
             overflow: hidden;
@@ -61,32 +66,37 @@
             padding-top: 10px;
             text-align: center;
         }
-
-        .label_titulo {
+        
+        .label_titulo
+        {
             font-size: 18px !important;
             color: Black;
             font-weight: 400;
             padding-left: 8px;
         }
-
-        .vinculo_derecha {
+        
+        .vinculo_derecha
+        {
             float: right;
             padding-right: 1%;
         }
-
-        .vinculo_izquierda {
+        
+        .vinculo_izquierda
+        {
             float: left;
             padding-left: 1%;
             display: none;
         }
-
-        .puntero {
+        
+        .puntero
+        {
             cursor: pointer;
             color: #404040;
             font-weight: bold;
         }
-
-        .borde_listview {
+        
+        .borde_listview
+        {
             color: #404040;
             border: 2px solid rgba(0,0,0,0.2) !important;
             padding: 1%;
@@ -97,17 +107,20 @@
             -moz-border-radius: 10px 10px 10px 10px !important;
             -webkit-border-radius: 10px 10px 10px 10px !important;
         }
-
-        .espacios_listview {
+        
+        .espacios_listview
+        {
             padding: 1%;
             margin: 1%;
         }
-
-        .texto_izq {
+        
+        .texto_izq
+        {
             text-align: left;
         }
-
-        .clase_cargando {
+        
+        .clase_cargando
+        {
             position: fixed;
             background-color: #0D0D0D;
             opacity: 0.5;
@@ -118,31 +131,34 @@
             z-index: 999;
             display: none;
         }
-
-        .icono_cargando {
+        
+        .icono_cargando
+        {
             top: 50%;
             left: 50%;
             position: fixed;
         }
-
-        .ui-body-b .ui-btn-inner.ui-li, .ui-body-b .ui-li-has-thumb {
+        
+        .ui-body-b .ui-btn-inner.ui-li, .ui-body-b .ui-li-has-thumb
+        {
             border-bottom: 1px solid #FF4D4D !important;
         }
-
-        .oculto {
+        
+        .oculto
+        {
             display: none;
         }
-
-        .mensaje_actualizar {
+        
+        .mensaje_actualizar
+        {
             top: 50%;
         }
-
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.mobile-1.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
-      <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
 </head>
 <body>
     <div class="clase_cargando" id="div_cargando">
@@ -151,7 +167,8 @@
     <div data-role="page" data-theme='b'>
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
             <a href="index.html" data-ajax="false"><i class='icon-ellipsis-vertical'></i></a>
-            <h1>Preguntas frecuentes</h1>
+            <h1>
+                Preguntas frecuentes</h1>
         </div>
         <div data-role="content" id="contenido_principal">
             <ul data-role="listview" data-divider-theme="b" data-icon="false" data-filter="false"
@@ -161,7 +178,8 @@
             <div class='message info'>
                 <i class='icon-info-sign'></i>
                 <p>
-                    En esta secci&oacute;n podr&aacute; consultar el listado de preguntas y respuestas de su interés
+                    En esta secci&oacute;n podr&aacute; consultar el listado de preguntas y respuestas
+                    de su interés
                 </p>
             </div>
             <div class='message error' id="div_sininternet">
@@ -171,26 +189,21 @@
                     su conexión e inténtelo nuevamente.
                 </p>
             </div>
-            
-            <strong>
-                <span class="label_titulo">Seleccione una categoría:</span>
-            </strong>
+            <strong><span class="label_titulo">Seleccione una categoría:</span> </strong>
             <br />
             <select class="styled-select" id="combo_categoria" name="combo_categoria" onchange="cargar_faqs()">
-			</select>
+            </select>
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
                 id="listadoProgramas">
             </ul>
-           
             <div class="center-text">
                 <label id="label_registros" style="text-align: center;">
                 </label>
             </div>
             <div id="flechas_paginacion" class="oculto">
-                <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda"
-                    id="flechas_paginacion_izq">< Anterior</a>
-                <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha"
-                    id="flechas_paginacion_der">Siguiente ></a>
+                <a href="#" onclick="paginarAnterior()" class="vinculo_izquierda" id="flechas_paginacion_izq">
+                    < Anterior</a> <a href="#" onclick="paginarSiguiente()" class="vinculo_derecha" id="flechas_paginacion_der">
+                        Siguiente ></a>
             </div>
             <br />
             <br />
@@ -198,6 +211,8 @@
                 data-theme='b'>
                 <div data-role="navbar">
                     <ul>
+                        <li style="height: 48px; padding-left: 0.5%; padding-top: 11px; border-right: none !important;">
+                            <strong>Síguenos: </strong></li>
                         <li><a href="#" onclick="abrirFacebook()" data-icon="facebook"></a></li>
                         <li><a href="#" onclick="abrirTwitter()" data-icon="twitter"></a></li>
                         <li><a href="#" onclick="abrirYoutube()" data-icon="youtube"></a></li>
@@ -216,28 +231,28 @@
         var dato_psw = "";
 
         $(document).ready(function () {
-			$('#div_sininternet').hide();
+            $('#div_sininternet').hide();
             $('.ui-icon.ui-icon-arrow-d.ui-icon-shadow').hide();
             $('#mensaje_sinregistros').hide();
-			cargar_categorias();
-			setTimeout("cargar_faqs()", 1000);
-			 try {
+            cargar_categorias();
+            setTimeout("cargar_faqs()", 1000);
+            try {
                 xmlDoc = AbrirFichero("xml/autenticacion.xml");
                 xmlAuth = xmlDoc.getElementsByTagName('authentication');
                 Auth_xml = xmlAuth[0];
                 dato_usuario = Auth_xml.getElementsByTagName("user")[0].firstChild.nodeValue;
                 dato_psw = Auth_xml.getElementsByTagName("password")[0].firstChild.nodeValue;
-               // cargar_departamentos();
+                // cargar_departamentos();
             }
             catch (e) {
 
             }
-		});
-		
-		function cargar_categorias() {
-		$("#combo_categoria>option").remove();
-		var texto ="";
-		var url = "http://servicedatosabiertoscolombia.cloudapp.net/v1/PNUD/uarivsoyvictima?$format=json";
+        });
+
+        function cargar_categorias() {
+            $("#combo_categoria>option").remove();
+            var texto = "";
+            var url = "http://servicedatosabiertoscolombia.cloudapp.net/v1/PNUD/uarivsoyvictima?$format=json";
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -246,23 +261,23 @@
                 success: function (data) {
                     $.each(data, function (i, field) {
                         var cant = field.length;
-						var categorias_ingresadas = "";
+                        var categorias_ingresadas = "";
                         $.each(field, function (x, item) {
-							if(categorias_ingresadas.indexOf("-" + field[x].idcategoria + "-") == -1) {
-								texto += " <option value='"+field[x].idcategoria+"'>"+field[x].categoria+"</option>";
-								categorias_ingresadas = categorias_ingresadas + "-" + field[x].idcategoria + "-";
-							}
-						});
-						$("#combo_categoria").append(texto);
-						$("#combo_categoria").val("1");
-						$("#combo_categoria").selectmenu('refresh');
-					});		                				
-				},
+                            if (categorias_ingresadas.indexOf("-" + field[x].idcategoria + "-") == -1) {
+                                texto += " <option value='" + field[x].idcategoria + "'>" + field[x].categoria + "</option>";
+                                categorias_ingresadas = categorias_ingresadas + "-" + field[x].idcategoria + "-";
+                            }
+                        });
+                        $("#combo_categoria").append(texto);
+                        $("#combo_categoria").val("1");
+                        $("#combo_categoria").selectmenu('refresh');
+                    });
+                },
                 error: function (x, y, z) {
 
                 }
-            });	
-		}
+            });
+        }
 
         function cargar_faqs() {
             estados_cont = 0;
@@ -278,67 +293,67 @@
                 success: function (data) {
                     $.each(data, function (i, field) {
                         var cant = field.length;
-						cont = 0;
+                        cont = 0;
                         pagina = 1;
                         numeropp = 0;
                         $.each(field, function (x, item) {
-							var categoria = $("#combo_categoria").val();
-							
-							if(categoria == field[x].idcategoria){
-								texto += "<li class='borde_listview todas " + pagina + "'><div data-role='collapsible'><h2 style='padding-bottom:2px;'>"+field[x].pregunta+"</h2>";
-								texto += "<p class='parra_texto ui-li-desc'>"+field[x].respuesta+"</p>";
-								cont++;
-								numeropp++;
-								if (numeropp == 5) {
-									pagina++;
-									numeropp = 0;
-								}
-							}
-						
-							
-						});
-						texto += "</div></li>";
-					});					
-						$('#div_cargando').hide();
-						$("#listadoProgramas").append(texto);
-                        $("#listadoProgramas").listview("refresh");
-                        $('div[data-role=collapsible]').collapsible({ refresh: true });
-                        $('div[data-role=navbar]').navbar({ refresh: true });
-                        if (cont % 5 == 0) {
-                            ultima_pagina = pagina - 1;
-                        }
-                        else {
-                            ultima_pagina = pagina;
-                        }
-						
-						numero_items = cont;
-                        $('#listadoProgramas .todas').hide();
-                        $('#listadoProgramas .' + primera_pagina).show();
+                            var categoria = $("#combo_categoria").val();
 
-                        if (cont < 5) {
-                            $('#label_registros').html("Preguntas 1 a " + cont + " de " + cont);
-                        }
-                        else {
-                            $('#label_registros').html("Preguntas 1 a " + 5 * pagina_actual + " de " + cont);
-                        }
-                        $('#flechas_paginacion_izq').hide();
-                        if (ultima_pagina < 2) {
+                            if (categoria == field[x].idcategoria) {
+                                texto += "<li class='borde_listview todas " + pagina + "'><div data-role='collapsible'><h2 style='padding-bottom:2px;'>" + field[x].pregunta + "</h2>";
+                                texto += "<p class='parra_texto ui-li-desc'>" + field[x].respuesta + "</p>";
+                                cont++;
+                                numeropp++;
+                                if (numeropp == 5) {
+                                    pagina++;
+                                    numeropp = 0;
+                                }
+                            }
 
-                            $('#flechas_paginacion_der').hide();
-                        }
-                        else {
-                            $('#flechas_paginacion_der').show();
-                        }
-                        if (cont == 0) {
-                            $('#mensaje_sinregistros').show();
-                            $('#flechas_paginacion').hide();
-                            $("#label_registros").css("display", "none");
-                        }
-                        else {
-                            $('#mensaje_sinregistros').hide();
-                            $('#flechas_paginacion').show();
-                            $("#label_registros").css("display", "block");
-                        }	
+
+                        });
+                        texto += "</div></li>";
+                    });
+                    $('#div_cargando').hide();
+                    $("#listadoProgramas").append(texto);
+                    $("#listadoProgramas").listview("refresh");
+                    $('div[data-role=collapsible]').collapsible({ refresh: true });
+                    $('div[data-role=navbar]').navbar({ refresh: true });
+                    if (cont % 5 == 0) {
+                        ultima_pagina = pagina - 1;
+                    }
+                    else {
+                        ultima_pagina = pagina;
+                    }
+
+                    numero_items = cont;
+                    $('#listadoProgramas .todas').hide();
+                    $('#listadoProgramas .' + primera_pagina).show();
+
+                    if (cont < 5) {
+                        $('#label_registros').html("Preguntas 1 a " + cont + " de " + cont);
+                    }
+                    else {
+                        $('#label_registros').html("Preguntas 1 a " + 5 * pagina_actual + " de " + cont);
+                    }
+                    $('#flechas_paginacion_izq').hide();
+                    if (ultima_pagina < 2) {
+
+                        $('#flechas_paginacion_der').hide();
+                    }
+                    else {
+                        $('#flechas_paginacion_der').show();
+                    }
+                    if (cont == 0) {
+                        $('#mensaje_sinregistros').show();
+                        $('#flechas_paginacion').hide();
+                        $("#label_registros").css("display", "none");
+                    }
+                    else {
+                        $('#mensaje_sinregistros').hide();
+                        $('#flechas_paginacion').show();
+                        $("#label_registros").css("display", "block");
+                    }
                 },
                 error: function (x, y, z) {
 
@@ -394,8 +409,8 @@
                 $('#label_registros').html("Preguntas " + items_pagina + " a " + items_final + " de " + cont);
             }
         }
-		
-		 function AbrirFichero(fichXML) {
+
+        function AbrirFichero(fichXML) {
             var xmlDoc = undefined;
             try {
                 if (document.all) //IE
@@ -426,20 +441,17 @@
             }
             return xmlDoc;
         }
-    function abrirFacebook ()
-    {
-        window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
-    }
-    
-    function abrirTwitter ()
-    {
-        window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
-    }
-    
-    function abrirYoutube ()
-    {
-        window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
-    }
+        function abrirFacebook() {
+            window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+
+        function abrirTwitter() {
+            window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+
+        function abrirYoutube() {
+            window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
+        }
 
 
     </script>
