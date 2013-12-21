@@ -1,63 +1,45 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Unidad de v&iacute;ctimas</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		
-		<!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
-
-		<!-- jQueryMobileCSS - original without styling -->
-        <link rel="stylesheet" href="css/jquerymobile.css" />
-
-		<!-- nativeDroid core CSS -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
-
-		<!-- nativeDroid: Light/Dark -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
-
-		<!-- nativeDroid: Color Schemes -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
-
-		<!-- jQuery / jQueryMobile Scripts -->
-        <script src="js/jquery-1.9.1.min.js"></script>
-        <script src="js/jquery.mobile-1.3.1.min.js"></script>
-        <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
-
-    </head>
-    <body>
-        
+<head>
+    <title>Unidad de v&iacute;ctimas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/jquerymobile.css" />
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+    <!-- nativeDroid: Light/Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css" id='jQMnDTheme' />
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.mobile-1.3.1.min.js"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
+</head>
+<body>
     <div data-role="page" data-theme='b'>
-	<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-	<img src="imagenes/unidadlogo.png" style="margin-left:2%; margin-top:8px;">
-            
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+            <img src="imagenes/unidadlogo.png" style="margin-left: 2%; margin-top: 8px;">
             <a href="index.html" data-ajax="false"></a>
-			
-    </div>
-        
-        <div data-role="content">   
-
-			<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
-	            <li data-role="list-divider">Men&uacute;</li>
-	            <li >
-					<a onclick="crearStorage()" href="convocatorias_entidad.html" data-ajax="false"><i class='icon-double-angle-right'></i> Consultar programas</a>
-	            </li>
-                <li>
-					<a href="entidades.html" data-ajax="false"><i class='icon-double-angle-right'></i> Entidades</a>
-	            </li>
-				<li>
-					<a href="puntos_atencion_mapa.html" data-ajax="false"><i class='icon-double-angle-right'></i> Puntos de atenci&oacute;n</a>
-	            </li>
-				 <li >
-					<a href="preguntas_frecuentes.html" data-ajax="false"><i class='icon-double-angle-right'></i> Preguntas frecuentes</a>
-	            </li>
-	            <li>
-					<a href="noticias.html" data-ajax="false"><i class='icon-double-angle-right'></i> M&aacute;s informaci&oacute;n</a>
-	            </li>	           
-	            <li>
-					<a href="acerca_de.html" data-ajax="false"><i class='icon-double-angle-right'></i> Acerca de</a>
-	            </li>
-	            <!--<li>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+                <li data-role="list-divider">Men&uacute;</li>
+                <li><a onclick="crearStorage()" href="convocatorias_entidad.html" data-ajax="false">
+                    <i class='icon-double-angle-right'></i>Consultar programas</a> </li>
+                <li><a href="entidades.html" data-ajax="false"><i class='icon-double-angle-right'></i>
+                    Entidades</a> </li>
+                <li><a href="puntos_atencion_mapa.html" data-ajax="false"><i class='icon-double-angle-right'>
+                </i>Puntos de atenci&oacute;n</a> </li>
+                <li><a href="preguntas_frecuentes.html" data-ajax="false"><i class='icon-double-angle-right'>
+                </i>Preguntas frecuentes</a> </li>
+                <li><a href="noticias.html" data-ajax="false"><i class='icon-double-angle-right'></i>
+                    M&aacute;s informaci&oacute;n</a> </li>
+                <li><a href="acerca_de.html" data-ajax="false"><i class='icon-double-angle-right'></i>
+                    Acerca de</a> </li>
+                <!--<li>
 					<a href="collapsible.html" data-ajax="false"><i class='icon-chevron-up'></i> Collapsible</a>
 	            </li>
 	            <li>
@@ -95,45 +77,42 @@
 	            <li>
 					<a href="license.html" data-ajax="false"><i class='icon-legal'></i> Credits &amp; License</a>
 	            </li>-->
-	        </ul>
-		</div>
-		<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
-                data-theme='b'>
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" onclick="abrirFacebook()" data-icon="facebook"></a></li>
-                        <li><a href="#" onclick="abrirTwitter()" data-icon="twitter"></a></li>
-                        <li><a href="#" onclick="abrirYoutube()" data-icon="youtube"></a></li>
-                    </ul>
-                </div>
+            </ul>
+        </div>
+        <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false"
+            data-theme='b'>
+            <div data-role="navbar">
+                <ul>
+                    <li style="height:48px; padding-left:0.5%; padding-top:11px; border-right:none !important;"><strong>Síguenos: </strong></li>
+                    <li><a href="#" onclick="abrirFacebook()" data-icon="facebook"></a></li>
+                    <li><a href="#" onclick="abrirTwitter()" data-icon="twitter"></a></li>
+                    <li><a href="#" onclick="abrirYoutube()" data-icon="youtube"></a></li>
+                </ul>
             </div>
+        </div>
     </div>
     <script>
-		 $(document).ready(function () {            
-		     localStorage.removeItem("nombre_entidad");
-		     localStorage.removeItem("nombre_departamento");
-		     localStorage.removeItem("nombre_municipio");
+        $(document).ready(function () {
+            localStorage.removeItem("nombre_entidad");
+            localStorage.removeItem("nombre_departamento");
+            localStorage.removeItem("nombre_municipio");
         });
-	
+
         function crearStorage() {
             localStorage.setItem("id_seleccionada", "sin_entidad");
         }
-    
-    function abrirFacebook ()
-    {
-        window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
-    }
-    
-    function abrirTwitter ()
-    {
-        window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
-    }
-    
-    function abrirYoutube ()
-    {
-         window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
-    }
+
+        function abrirFacebook() {
+            window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+
+        function abrirTwitter() {
+            window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
+        }
+
+        function abrirYoutube() {
+            window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
+        }
     </script>
-    
-    </body>
+</body>
 </html>
