@@ -430,10 +430,17 @@
                                         cont++;
                                         numeropp++;
 
-                                        texto = "<li class='borde_listview todas " + pagina + "'>" +
-                                                    "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
-                                                    "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
-                                                "</li>";
+                                     texto = "<li class='borde_listview todas " + pagina + "'>" +
+                                    "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
+                                    "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
+                                    "<div style=\"text-align: right;\">" +
+                                    "<a style=\"color: #404040 !important;\" onclick='abrirFacebookProgramas()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "color: #404040 !important;\" ></a>" +
+                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\""+xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue+"\")'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "color: #404040 !important;\" ></a>" +
+                                    "</a>" +
+                                    "</div>"+
+                                    "</li>";
 
                                         $("#lista_entidades").append(texto);
 
