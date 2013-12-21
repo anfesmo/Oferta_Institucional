@@ -673,6 +673,19 @@
         window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
     }
 
+    function abrirFacebookProgramas() {
+        
+        window.open("http://www.facebook.com/share.php?u=https://www.facebook.com/unidadvictimas&title=Unidad", "_blank", "closebuttoncaption=Regresar");
+        
+    }
+    
+    function abrirTwitterProgramas(nombreEntidad) {
+        
+        nombreEntidad = omitirAcentos(nombreEntidad);
+        window.open("http://twitter.com/home?status= He visto la entidad "+nombreEntidad+", de seguro puede interesarte http://www.unidadvictimas.gov.co/", "_blank", "closebuttoncaption=Regresar");
+        
+    }
+
     </script>
 </body>
 </html>

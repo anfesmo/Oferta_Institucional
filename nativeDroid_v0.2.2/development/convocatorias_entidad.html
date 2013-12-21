@@ -638,10 +638,10 @@
                                         texto += xmlDoc.getElementsByTagName("HORARIO")[i].childNodes[0].nodeValue;
                                     }
                                     texto += "</p><br />";
-                                    texto += "<div style=\"text-align: right;\">" +
-                                    "<a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\""+xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue+"\")'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                     texto += "<div style=\"text-align: right;\">" +
+                                    "<a style=\"color: #404040 !important;\" onclick='abrirFacebookProgramas()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
                                         "color: #404040 !important;\" ></a>" +
-                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\""+xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue+"\")'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
                                         "color: #404040 !important;\" ></a>" +
                                     "</a>" +
                                 "</div>";
@@ -675,7 +675,6 @@
                                 texto += "<p><strong>Entidad:</strong><br />";
                                 if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
                                     texto += xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
-                                    alert(xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue);
                                 }
                                 texto += " </p>";
                                 texto += "<p><strong>Horario de atenci&oacute;n:</strong><br /> ";
@@ -684,9 +683,9 @@
                                 }
                                 texto += "</p><br />";
                                 texto += "<div style=\"text-align: right;\">" +
-                                    "<a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\""+xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue+"\")'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "<a style=\"color: #404040 !important;\" onclick='abrirFacebookProgramas()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
                                         "color: #404040 !important;\" ></a>" +
-                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas()'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                    "</a><a style=\"color: #404040 !important;\" + onclick='abrirTwitterProgramas(\""+xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue+"\")'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
                                         "color: #404040 !important;\" ></a>" +
                                     "</a>" +
                                 "</div>";
@@ -841,18 +840,18 @@
             window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
         }
 
-         function abrirFacebookProgramas() {
+        function abrirFacebookProgramas() {
         
-        window.open("http://www.facebook.com/share.php?u=https://www.facebook.com/unidadvictimas&title=Unidad", "_blank", "closebuttoncaption=Regresar");
+            window.open("http://www.facebook.com/share.php?u=https://www.facebook.com/unidadvictimas&title=Unidad", "_blank", "closebuttoncaption=Regresar");
         
-    }
+        }
     
-    function abrirTwitterProgramas(nombrePrograma) {
+        function abrirTwitterProgramas(nombrePrograma) {
         
-        nombrePrograma = omitirAcentos(nombrePrograma);
-        window.open("http://twitter.com/home?status= He visto el programa "+nombrePrograma+", de seguro puede interesarte http://www.unidadvictimas.gov.co/", "_blank", "closebuttoncaption=Regresar");
+            nombrePrograma = omitirAcentos(nombrePrograma);
+            window.open("http://twitter.com/home?status= He visto el programa "+nombrePrograma+", de seguro puede interesarte http://www.unidadvictimas.gov.co/", "_blank", "closebuttoncaption=Regresar");
         
-    }
+        }
 
     </script>
 </body>
