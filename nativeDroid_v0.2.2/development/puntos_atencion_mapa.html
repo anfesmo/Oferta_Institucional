@@ -219,7 +219,7 @@
                 Auth_xml = xmlAuth[0];
                 dato_usuario = Auth_xml.getElementsByTagName("user")[0].firstChild.nodeValue;
                 dato_psw = Auth_xml.getElementsByTagName("password")[0].firstChild.nodeValue;
-                //cargar_departamentos();
+                cargar_departamentos();
             }
             catch (e) {
 
@@ -227,8 +227,7 @@
         });
 
         function cargar_departamentos() {
-            $('#div_cargando').show();
-            $("#combo_departamento").find('option').remove().end().attr("selected", "selected");
+            estados_cont = 0;
             var xmlhttp = new window.XMLHttpRequest();
             xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/WS_MAARIV.asmx?wsdl', true);
             var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
@@ -248,44 +247,54 @@
                       '</soapenv:Envelope>';
             xmlhttp.setRequestHeader('Content-Type', 'text/xml');
             xmlhttp.onreadystatechange = function () {
+                estados_cont++;
                 if (xmlhttp.readyState == 4) {
-                    try { //Internet Explorer
-                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-                        xmlDoc.async = "false";
-                        xmlDoc.loadXML(this.responseText);
-                    }
-                    catch (e) {
-                        try { // Firefox, Mozilla, Opera, etc.
-                            parser = new DOMParser();
-                            xmlDoc = parser.parseFromString(this.responseText, "text/xml");
-                        }
-                        catch (e) {
-                            //alert(e.message);
-                            return;
-                        }
-                    }
-                    var nodesND = xmlDoc.getElementsByTagName("NewDataSet");
-                    var cantidadND = nodesND.length;
-                    if (cantidadND == 0) {
-                        $("#div_app_desactualizada").show();
-                        $('#div_cargando').hide();
-                        $('#contenido_principal').hide();
+                    if (estados_cont > 1) {
+//                        try { //Internet Explorer
+//                            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+//                            xmlDoc.async = "false";
+//                            xmlDoc.loadXML(this.responseText);
+//                        }
+//                        catch (e) {
+//                            try { // Firefox, Mozilla, Opera, etc.
+//                                parser = new DOMParser();
+//                                xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+//                            }
+//                            catch (e) {
+//                                //alert(e.message);
+//                                return;
+//                            }
+//                        }
+//                        var nodesND = xmlDoc.getElementsByTagName("consultar_departamentosResult");
+//                        var cantidadND = nodesND.length;
+
+//                        if (cantidadND == 0) {
+//                            $("#div_app_desactualizada").show();
+//                            $('#div_cargando').hide();
+//                            $('#contenido_principal').hide();
+//                        }
+//                        else {
+//                            var nodes = xmlDoc.getElementsByTagName("departamento");
+//                            var cantidad = nodes.length;
+//                            var texto_combo = "";
+//                            for (var i = 0; i < cantidad; i++) {
+//                                texto_combo += "<option value='" + xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+//                            }
+//                            $("#combo_departamento").append(texto_combo);
+//                            //$("#combo_departamento").val("5");
+//                            $("#combo_departamento").selectmenu('refresh');
+//                            cargar_ciudades();
+                        //                        }
+                        $('#map-canvas').show();
+                        $('#div_sininternet').hide();
                     }
                     else {
-                        var nodes = xmlDoc.getElementsByTagName("departamento");
-                        var cantidad = nodes.length;
-                        var texto_combo = "";
-                        for (var i = 0; i < cantidad; i++) {
-                            //if (xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue == localStorage.getItem("nombre_departamento")) {
-                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
-                            //} else {
-                            //  texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
-                            //}
-                        }
-                        $("#combo_departamento").append(texto_combo);
-                        $("#combo_departamento").selectmenu('refresh');
-                        google.maps.event.addDomListener(window, 'load', crearMapa);
-                        //crearMapa();
+                        $('#div_sininternet').show();
+                        $('#map-canvas').hide();
+//                        $('#mensaje_sinregistros').hide();
+//                        $('#flechas_paginacion_izq').hide();
+//                        $('#flechas_paginacion_der').hide();
+                        $('#div_cargando').hide();
                     }
                 }
             }
