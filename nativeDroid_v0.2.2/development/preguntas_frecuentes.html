@@ -222,7 +222,7 @@
         </div>
     </div>
     <script type="text/javascript">
-
+		
         var pagina_actual = 1;
         var ultima_pagina = 1;
         var primera_pagina = 1;
@@ -259,8 +259,8 @@
                 dataType: 'jsonp',
                 crossDomain: true,
                 success: function (data) {
-                    $.each(data, function (i, field) {
-                        var cant = field.length;
+				    $.each(data, function (i, field) {
+					    var cant = field.length;
                         var categorias_ingresadas = "";
                         $.each(field, function (x, item) {
                             if (categorias_ingresadas.indexOf("-" + field[x].idcategoria + "-") == -1) {
@@ -274,12 +274,16 @@
                     });
                 },
                 error: function (x, y, z) {
-
-                }
+					if(y == "timeout"){
+						$('#div_sininternet').show();
+					}
+                }, 
+				timeout: 15000							
             });
         }
 
         function cargar_faqs() {
+			$('#div_sininternet').hide();
             estados_cont = 0;
             $("#listadoProgramas").html("");
             var texto = "";
