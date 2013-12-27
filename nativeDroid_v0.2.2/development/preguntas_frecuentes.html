@@ -189,10 +189,12 @@
                     su conexión e inténtelo nuevamente.
                 </p>
             </div>
-            <strong><span class="label_titulo">Seleccione una categoría:</span> </strong>
-            <br />
-            <select class="styled-select" id="combo_categoria" name="combo_categoria" onchange="cargar_faqs()">
-            </select>
+			<div id="filtro">
+				<strong><span class="label_titulo">Seleccione una categoría:</span> </strong>
+				<br />
+				<select class="styled-select" id="combo_categoria" name="combo_categoria" onchange="cargar_faqs()">
+				</select>
+			</div>
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
                 id="listadoProgramas">
             </ul>
@@ -250,6 +252,8 @@
         });
 
         function cargar_categorias() {
+			$('#div_cargando').show();
+			$('#filtro').show();
             $("#combo_categoria>option").remove();
             var texto = "";
             var url = "http://servicedatosabiertoscolombia.cloudapp.net/v1/PNUD/uarivsoyvictima?$format=json";
@@ -271,11 +275,14 @@
                         $("#combo_categoria").append(texto);
                         $("#combo_categoria").val("1");
                         $("#combo_categoria").selectmenu('refresh');
+						$('#div_cargando').hide();
                     });
                 },
                 error: function (x, y, z) {
 					if(y == "timeout"){
 						$('#div_sininternet').show();
+						$('#filtro').hide();
+						$('#div_cargando').hide();
 					}
                 }, 
 				timeout: 15000							
@@ -283,6 +290,8 @@
         }
 
         function cargar_faqs() {
+			$('#div_cargando').show();
+			$('#filtro').show();
 			$('#div_sininternet').hide();
             estados_cont = 0;
             $("#listadoProgramas").html("");
