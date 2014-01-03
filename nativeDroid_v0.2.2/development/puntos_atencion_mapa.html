@@ -219,7 +219,7 @@
                 Auth_xml = xmlAuth[0];
                 dato_usuario = Auth_xml.getElementsByTagName("user")[0].firstChild.nodeValue;
                 dato_psw = Auth_xml.getElementsByTagName("password")[0].firstChild.nodeValue;
-                cargar_departamentos();
+                //cargar_departamentos();
             }
             catch (e) {
 
@@ -384,6 +384,7 @@
 
         function crearMapa() {
             //alert("creando");
+            cargar_departamentos();
             markers = [];
             var Depto = document.getElementById('combo_departamento').value;
             if (Depto != null) {
