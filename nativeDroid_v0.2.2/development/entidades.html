@@ -388,6 +388,7 @@
             $("#lista_entidades").html("");
             $("#label_registros").css("display", "none");
             $('#flechas_paginacion').hide();
+            $('#mensaje_sincriterio').hide();
             var palabra_clave = $("#txt_palabra").val();
             if ($("#combo_departamento").val() != "0" || palabra_clave != "") {
                 pagina_actual = 1;
@@ -565,6 +566,7 @@
             }
             else
             {
+                $('#mensaje_sincriterio').show();
                 $('#div_cargando').hide();
             }
         }
@@ -700,6 +702,13 @@
                     Los datos seleccionados no tienen entidades asociadas
                 </p>
             </div>
+            <div class='message warning oculto' id="mensaje_sincriterio">
+                <i class='icon-info-sign'></i>
+                <p>
+                    Debe seleccionar por lo menos un criterio de búsqueda
+                </p>
+            </div>
+            
             <div class="center-text">
                 <label id="label_registros" style="text-align: center;">
                 </label>
