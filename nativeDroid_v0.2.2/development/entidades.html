@@ -163,6 +163,30 @@
             top: 50%;
         }
 
+        .ui-input-text {
+            border-bottom: none !important;
+        }
+
+        .text_buscar {
+            text-align: center;
+            width: 60% !important;
+            margin-left: 20% !important;
+            background-color: #fff !important;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-color: #e9e9e9;
+            border: 1px solid !important;
+            border-bottom: 1px solid !important;
+        }
+
+        .ui-body-b div.ui-input-text input {
+            padding-left: 0px;
+        }
+
+        .ui-footer.ui-fixed-hidden, .ui-header.ui-fixed-hidden {
+            padding: 0 !important;
+            position: fixed !important;
+        }
     </style>
     <!-- jQuery / jQueryMobile Scripts -->
     <script src="js/jquery-1.9.1.min.js"></script>
@@ -364,7 +388,8 @@
             $("#lista_entidades").html("");
             $("#label_registros").css("display", "none");
             $('#flechas_paginacion').hide();
-            if ($("#combo_departamento").val() != "0") {
+            var palabra_clave = $("#txt_palabra").val();
+            if ($("#combo_departamento").val() != "0" || palabra_clave != "") {
                 pagina_actual = 1;
                 ultima_pagina = 1;
                 primera_pagina = 1;
@@ -422,33 +447,73 @@
                         pagina = 1;
                         numeropp = 0;
                         var entidades_ing = "";
+                        var texto_aux = "";
+
                         for (var i = 0; i < cantidad; i++) {
-                            if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null) {
-                                var num = xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length;
-                                if (num > 0) {
-                                    if (entidades_ing.indexOf("-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-") == -1) {
-                                        cont++;
-                                        numeropp++;
+                            if (palabra_clave != "") {
+                                if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length > 0) {
+                                    texto_aux = xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue;
+                                    if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
+                                        if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null) {
+                                            var num = xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length;
+                                            if (num > 0) {
+                                                if (entidades_ing.indexOf("-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-") == -1) {
+                                                    cont++;
+                                                    numeropp++;
 
-                                     texto = "<li class='borde_listview todas " + pagina + "'>" +
-                                    "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
-                                    "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
-                                    "<div style=\"text-align: right;\">" +
-                                    "<a style=\"color: #404040 !important;\" onclick='abrirFacebookProgramas()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
-                                    "color: #404040 !important;\" ></a>" +
-                                    "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\""+xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue+"\")'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
-                                    "color: #404040 !important;\" ></a>" +
-                                    "</a>" +
-                                    "</div>"+
-                                    "</li>";
+                                                    texto = "<li class='borde_listview todas " + pagina + "'>" +
+                                                   "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
+                                                   "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
+                                                   "<div style=\"text-align: right;\">" +
+                                                   "<a style=\"color: #404040 !important;\" onclick='abrirFacebookProgramas()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                                   "color: #404040 !important;\" ></a>" +
+                                                   "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\"" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "\")'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                                   "color: #404040 !important;\" ></a>" +
+                                                   "</a>" +
+                                                   "</div>" +
+                                                   "</li>";
 
-                                        $("#lista_entidades").append(texto);
+                                                    $("#lista_entidades").append(texto);
 
-                                        if (numeropp == 5) {
-                                            pagina++;
-                                            numeropp = 0;
+                                                    if (numeropp == 5) {
+                                                        pagina++;
+                                                        numeropp = 0;
+                                                    }
+                                                    entidades_ing += "-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-";
+                                                }
+                                            }
                                         }
-                                        entidades_ing += "-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-";
+                                    }
+                                }
+                            }
+                            else {
+                                if (xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i] != null) {
+                                    var num = xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes.length;
+                                    if (num > 0) {
+                                        if (entidades_ing.indexOf("-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-") == -1) {
+                                            cont++;
+                                            numeropp++;
+
+                                            texto = "<li class='borde_listview todas " + pagina + "'>" +
+                                           "<h1>" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "</h1>" +
+                                           "<a onclick='consultarProgramas(\"" + xmlDoc.getElementsByTagName('NOMBRE_ENTIDAD')[i].childNodes[0].nodeValue + "\");' class='ui-link puntero' >Ver programas</a>" +
+                                           "<div style=\"text-align: right;\">" +
+                                           "<a style=\"color: #404040 !important;\" onclick='abrirFacebookProgramas()'>facebook<a title=\"Compartir Facebook\" class=\"icon-facebook-sign icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                           "color: #404040 !important;\" ></a>" +
+                                           "</a><a style=\"color: #404040 !important;\" onclick='abrirTwitterProgramas(\"" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "\")'>twitter<a target=\"_blank\" title=\"Compartir Twitter\" class=\"icon-twitter icon-large\" style=\"margin-right: 8px !important; margin-left: 8px !important;" +
+                                           "color: #404040 !important;\" ></a>" +
+                                           "</a>" +
+                                           "</div>" +
+                                           "</li>";
+
+                                            $("#lista_entidades").append(texto);
+
+                                            if (numeropp == 5) {
+                                                pagina++;
+                                                numeropp = 0;
+                                            }
+                                            entidades_ing += "-" + xmlDoc.getElementsByTagName("NOMBRE_ENTIDAD")[i].childNodes[0].nodeValue + "-";
+                                        }
                                     }
                                 }
                             }
@@ -622,6 +687,8 @@
             <br />
             <select class="styled-select" id="combo_municipio" name="combo_municipio">
             </select>
+            <input class="text_buscar" type="text" id="txt_palabra" placeholder="Ingrese palabra clave"
+                   name="txt_palabra" />
             <strong>
                 <input type="button" class="styled-button" value="Consultar" onclick="cargar_entidades()" />
             </strong>
@@ -649,7 +716,7 @@
                 data-theme='b'>
                 <div data-role="navbar">
                     <ul>
-                        <li style="height:48px; padding-left:0.5%; padding-top:11px; border-right:none !important;"><strong>Síguenos: </strong></li>
+                        <li style="height:48px; padding-left:0.5%; padding-top:11px; border-right:none !important;"><strong>S&iacute;guenos: </strong></li>
                     
                         <li><a href="#" onclick="abrirFacebook()" data-icon="facebook"></a></li>
                         <li><a href="#" onclick="abrirTwitter()" data-icon="twitter"></a></li>
