@@ -277,7 +277,7 @@
             <input class="text_buscar" type="text" id="txt_palabra" placeholder="Ingrese palabra clave"
                 name="txt_palabra" />
             <strong>
-                <input type="button" class="styled-button" value="Consultar" onclick="cargar_datos()" />
+                <input type="button" class="styled-button" value="Consultar" id="btnConsulta" onclick="cargar_datos()" />
             </strong>
             <br />
             <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b"
@@ -514,6 +514,7 @@
             if ($("#combo_departamento").val() != "0")
             {
                 $('#div_cargando').show();
+                cambiarColor("inicio");
                 document.getElementById("txt_palabra").disabled = true;
                 if (palabra_clave == "") {
                     $('#div_cargando').show();
@@ -764,6 +765,7 @@
                             $("#label_registros").css("display", "block");
                         }
                         $('#div_cargando').hide();
+                        cambiarColor("fin");
                         document.getElementById("txt_palabra").disabled = false;
                         if (palabra_clave != "") {
                             document.getElementById("txt_palabra").focus();
@@ -858,6 +860,18 @@
         
         }
 
+        //@param accion: determina si es cambio de color al presionar el botón o para restaurar despues de terminar la acción
+        function cambiarColor (accion) 
+        {
+            if (accion === "inicio") 
+            {
+                $("#btnConsulta").css('background-color', '#7F0000');      
+            } 
+            else if (accion === "fin") 
+            {
+                $("#btnConsulta").css('background-color', '#ddd');      
+            }
+        }
     </script>
 </body>
 </html>
