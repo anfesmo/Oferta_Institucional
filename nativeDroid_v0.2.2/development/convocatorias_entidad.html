@@ -289,6 +289,12 @@
                     Los datos seleccionados no tienen programas asociados
                 </p>
             </div>
+			 <div class='message warning oculto' id="mensaje_sincriterio">
+                <i class='icon-info-sign'></i>
+                <p>
+                    Debe seleccionar por lo menos un criterio de búsqueda
+                </p>
+            </div>
             <div class="center-text">
                 <label id="label_registros" style="text-align: center;">
                 </label>
@@ -501,7 +507,8 @@
                     $("#combo_municipio").append(texto_combo);
                     $("#combo_municipio").selectmenu('refresh');
                     $('#div_cargando').hide();
-                    if (localStorage.getItem("nombre_entidad") != null) {
+                    
+					if (localStorage.getItem("nombre_entidad") != null) {
                         cargar_datos();
                     }
                 }
@@ -510,15 +517,19 @@
         }
 
         function cargar_datos() {
-
-            if ($("#combo_departamento").val() != "0")
+			$('#mensaje_sincriterio').hide();
+			var palabra_clave = $("#txt_palabra").val();
+			
+            if ($("#combo_departamento").val() != "0" || palabra_clave != "")
             {
+			console.log("dpto "+$("#combo_departamento").val() );
                 $('#div_cargando').show();
                 cambiarColor("inicio");
                 document.getElementById("txt_palabra").disabled = true;
-                if (palabra_clave == "") {
-                    $('#div_cargando').show();
-                }
+				
+				// if (palabra_clave == "") {
+					//   $('#div_cargando').show();
+				// }
                 //setTimeout("$('#div_cargando').hide();", 5000);
                 pagina_actual = 1;
                 ultima_pagina = 1;
@@ -535,21 +546,19 @@
                 if (depto == "0 SELECCIONE") {
                     depto = "";
                 }
-
+				console.log("pal "+palabra_clave+" depto "+depto);
                 var estado = $("#combo_estado").val();
                 var texto = "";
-                var entidad = localStorage.getItem("nombre_entidad")
-                var palabra_clave = $("#txt_palabra").val();
-
-                var entidad = "";
-
+               // var entidad = localStorage.getItem("nombre_entidad")
+                
+				var entidad = "";
                 if (localStorage.getItem("nombre_entidad") != null) {
                     entidad = localStorage.getItem("nombre_entidad");
                 }
 
                 var xmlhttp = new window.XMLHttpRequest();
                 xmlhttp.open('POST', 'http://maariv.unidadvictimas.gov.co/WSMAARIV/?wsdl', true);
-
+				
                 var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">' +
                     '<soapenv:Header/>' +
                     '<soapenv:Body>' +
@@ -594,6 +603,7 @@
                         var texto_aux = "";
                         for (var i = 0; i < cantidad; i++) {
                             bandera = 0;
+							
                             if (palabra_clave != "") {
 
                                 //texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
@@ -717,9 +727,6 @@
                                 numeropp++;
                             }
 
-
-
-
                             if (numeropp == 5) {
                                 pagina++;
                                 numeropp = 0;
@@ -773,6 +780,12 @@
                     }
                 }
                 xmlhttp.send(sr);
+            }
+			else
+            {
+                $('#mensaje_sincriterio').show();
+                $('#div_cargando').hide();
+                cambiarColor("fin");
             }
         }
 
