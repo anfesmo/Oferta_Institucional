@@ -521,7 +521,7 @@
 			$("#listadoProgramas").html("");
 			var palabra_clave = $("#txt_palabra").val();
 			cambiarColor("inicio");
-            if ($("#combo_departamento").val() != "0" || palabra_clave != "")
+            if ($("#combo_departamento").val() != "0" || palabra_clave != "" || localStorage.getItem("nombre_entidad") != null)
             {
 			    $('#div_cargando').show();
                 ////////////////////////////////document.getElementById("txt_palabra").disabled = true;
