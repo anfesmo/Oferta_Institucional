@@ -518,16 +518,14 @@
 
         function cargar_datos() {
 			$('#mensaje_sincriterio').hide();
+			$("#listadoProgramas").html("");
 			var palabra_clave = $("#txt_palabra").val();
-			
+			cambiarColor("inicio");
             if ($("#combo_departamento").val() != "0" || palabra_clave != "")
             {
-			
-                $('#div_cargando').show();
-                cambiarColor("inicio");
-                document.getElementById("txt_palabra").disabled = true;
-				
-				// if (palabra_clave == "") {
+			    $('#div_cargando').show();
+                ////////////////////////////////document.getElementById("txt_palabra").disabled = true;
+				//if (palabra_clave == "") {
 					//   $('#div_cargando').show();
 				// }
                 //setTimeout("$('#div_cargando').hide();", 5000);
@@ -535,7 +533,7 @@
                 ultima_pagina = 1;
                 primera_pagina = 1;
                 numero_items = 0;
-                $("#listadoProgramas").html("");
+               
                 var depto = $("#combo_departamento option:selected").text();
                 var municipio = $("#combo_municipio option:selected").text();
 
@@ -609,8 +607,10 @@
                                 //texto += "<li class='borde_listview todas " + pagina + "'>  <div data-role='collapsible'><h2 style='padding-bottom:2px;'>";
                                 if (xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i] != null && xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes.length > 0) {
                                     texto_aux = xmlDoc.getElementsByTagName("NOMBRE_PROGRAMA")[i].childNodes[0].nodeValue;
+									//console.log("Texto "+texto_aux);
                                     if (texto_aux.toLowerCase().indexOf(palabra_clave.toLowerCase()) != -1) {
                                         bandera = 1;
+										//console-log("B "+bandera);
                                     }
                                 }
                                 //texto += "</h2>";
