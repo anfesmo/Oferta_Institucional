@@ -294,6 +294,7 @@
 			$('#filtro').show();
 			$('#div_sininternet').hide();
 			$('#label_registros').show();
+			$('#flechas_paginacion').show();
             estados_cont = 0;
             $("#listadoProgramas").html("");
             var texto = "";
@@ -371,10 +372,11 @@
                 },
                 error: function (x, y, z) {
 					if(y == "timeout"){
-						$('#div_sininternet').show();
-						$('#filtro').hide();
+						//$('#filtro').hide();
 						$('#div_cargando').hide();
 						$('#label_registros').hide();
+						$('#flechas_paginacion').hide();
+						$('#div_sininternet').show();	
 					}
                 }, 
 				timeout: 15000
