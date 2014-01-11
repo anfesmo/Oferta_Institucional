@@ -292,7 +292,7 @@
 			 <div class='message warning oculto' id="mensaje_sincriterio">
                 <i class='icon-info-sign'></i>
                 <p>
-                    Debe seleccionar por lo menos un criterio de búsqueda
+                    Debe seleccionar un departamento o ingresar una palabra clave
                 </p>
             </div>
             <div class="center-text">
@@ -432,9 +432,9 @@
                             var texto_combo = "";
                             for (var i = 0; i < cantidad; i++) {
                                 if (xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue == localStorage.getItem("nombre_departamento")) {
-                                    texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "' selected>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                                    texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "' selected>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue.replace("0 SELECCIONE", "SELECCIONE") + "</option>";
                                 } else {
-                                    texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue + "</option>";
+                                    texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_departamento")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("departamento")[i].childNodes[0].nodeValue.replace("0 SELECCIONE", "SELECCIONE") + "</option>";
                                 }
                             }
 
@@ -498,9 +498,9 @@
                     var texto_combo = "";
                     for (var i = 0; i < cantidad; i++) {
                         if (xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue == localStorage.getItem("nombre_municipio")) {
-                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "' selected>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue + "</option>";
+                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "' selected>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue.replace("0 SELECCIONE", "SELECCIONE") + "</option>";
                         } else {
-                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue + "</option>";
+                            texto_combo += "<option value='" + omitirAcentos(xmlDoc.getElementsByTagName("id_municipio")[i].childNodes[0].nodeValue.toUpperCase()) + "'>" + xmlDoc.getElementsByTagName("municipio")[i].childNodes[0].nodeValue.replace("0 SELECCIONE", "SELECCIONE") + "</option>";
                             $("#combo_municipio").val("2");
                         }
                     }
