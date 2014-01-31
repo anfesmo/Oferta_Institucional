@@ -211,7 +211,6 @@
                 catch (e) {
                     return undefined;
                 }
-
             }
             return xmlDoc;
         }
@@ -227,7 +226,7 @@
                 Auth_xml = xmlAuth[0];
                 dato_usuario = Auth_xml.getElementsByTagName("user")[0].firstChild.nodeValue;
                 dato_psw = Auth_xml.getElementsByTagName("password")[0].firstChild.nodeValue;
-                //cargar_departamentos();
+                cargar_departamentos();
             }
             catch (e) {
 
@@ -520,20 +519,21 @@
         </div>-->
     </div>
     <script>
+
         function abrirFacebook ()
         {
             window.open("https://www.facebook.com/unidadvictimas", "_blank", "closebuttoncaption=Regresar");
         }
     
-    function abrirTwitter ()
-    {
-        window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
-    }
+        function abrirTwitter ()
+        {
+            window.open("https://twitter.com/UnidadVictimas", "_blank", "closebuttoncaption=Regresar");
+        }
     
-    function abrirYoutube ()
-    {
-        window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
-    }
+        function abrirYoutube ()
+        {
+            window.open("http://www.youtube.com/user/UPARIV", "_blank", "closebuttoncaption=Regresar");
+        }
 
     </script>
 </body>
